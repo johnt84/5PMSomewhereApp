@@ -2,17 +2,21 @@
 
 namespace FivePMSomwhereEngine
 {
-    public class FivePMSomwhereService
+    public class FivePmSomwhereService
     {
         public const int TargetHour = 17;
            
-        public FivePMModel GetApplicableTimeZones()
+        public FivePmModel GetApplicableTimeZones()
         {
             var targetTime = new TimeSpan(TargetHour, 0, 0);
             
             var timeZones = TimeZoneInfo.GetSystemTimeZones();
 
-            int numberOfHours = TargetHour - DateTime.UtcNow.Hour;
+            var currentDate = DateTime.UtcNow;
+
+            var targetDate = new DateTime(currentDate.Year, currentDate.Month, currentDate.Day, TargetHour, 0, 0);
+
+            int numberOfHours = TargetHour - currentDate.Hour;
 
             if (timeZones is null)
             {
@@ -20,30 +24,38 @@ namespace FivePMSomwhereEngine
             }
 
             var targetHourTimeZones = timeZones
-                           .Where(timeZone => timeZone.BaseUtcOffset.Hours == numberOfHours)
-                           .ToList();
+                           .Where(timeZone => timeZone.BaseUtcOffset.Hours == numberOfHours);
 
             var firstUtcOffsetAfterTargetTime = timeZones
-                                                    .Where(timeZone => timeZone.BaseUtcOffset.Hours > numberOfHours)
+                                                    .Where(timeZone => timeZone.BaseUtcOffset.Hours < numberOfHours)
                                                     .GroupBy(timeZone => timeZone.BaseUtcOffset)
-                                                    .OrderByDescending(TimeZone => TimeZone)
-                                                    .Select(TimeZone => TimeZone)
+                                                    .OrderByDescending(TimeZone => TimeZone.Key)
+                                                    .Select(TimeZone => TimeZone.Key)
                                                     .First();
 
-            var nextTimeZonesToHitTargetTime = timeZones
-                    .Where(timeZone => timeZone.BaseUtcOffset == firstUtcOffsetAfterTargetTime.Key)
-                    .Select(timeZone => new TargetTimeModel()
-                    {
-                        TimeZoneName = timeZone.DisplayName,
-                        UtcOffset = timeZone.BaseUtcOffset.Hours,
-                        TimeAtOffset = DateTime.UtcNow.AddHours(timeZone.BaseUtcOffset.Hours),
-                        NumberOfMinutesToFivePM = targetTime.Hours - DateTime.UtcNow.AddHours(timeZone.BaseUtcOffset.Hours).Hour
-                    });
+            var previousTimeZones = targetHourTimeZones
+                                       .Select(timeZone => new TimeAfterTargetModel()
+                                       {
+                                           TimeZoneName = timeZone.DisplayName,
+                                           UtcOffset = timeZone.BaseUtcOffset.Hours,
+                                           TimeAtOffset = currentDate.AddHours(timeZone.BaseUtcOffset.Hours),
+                                           NumberOfMinutesAfterTarget = (currentDate.AddHours(timeZone.BaseUtcOffset.Hours) - targetDate).Minutes
+                                       });
 
-            return new FivePMModel()
+            var nextTimeZones = timeZones
+                                .Where(timeZone => timeZone.BaseUtcOffset == firstUtcOffsetAfterTargetTime)
+                                .Select(timeZone => new TimeBeforeTargetModel()
+                                {
+                                    TimeZoneName = timeZone.DisplayName,
+                                    UtcOffset = timeZone.BaseUtcOffset.Hours,
+                                    TimeAtOffset = currentDate.AddHours(timeZone.BaseUtcOffset.Hours),
+                                    NumberOfMinutesBeforeTarget = (targetDate - currentDate.AddHours(timeZone.BaseUtcOffset.Hours)).Minutes
+                                });
+
+            return new FivePmModel()
             {
-                TargetHourTimezones = targetHourTimeZones,
-                TargetFivePMTimezones = nextTimeZonesToHitTargetTime.ToList()
+                NextTimeZones = nextTimeZones,
+                PreviousTimezones = previousTimeZones
             };
         }
     }

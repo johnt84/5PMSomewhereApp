@@ -1,8 +1,8 @@
 ﻿namespace FivePMShared.Models
 {
-    public class FivePMModel
+    public class FivePmModel
     {
-        public List<TimeZoneInfo> TargetHourTimezones { get; set; }
-        public List<TargetTimeModel> TargetFivePMTimezones { get; set; }
+        public IEnumerable<TimeAfterTargetModel> PreviousTimezones { get; set; }
+        public IEnumerable<TimeBeforeTargetModel> NextTimeZones { get; set; }
     }
 }

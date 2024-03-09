@@ -2,8 +2,8 @@
 
 namespace FivePMSomwhereEngine
 {
-    public interface IFivePMSomewhereService
+    public interface IFivePmSomewhereService
     {
-        FivePMModel GetApplicableTimeZones();
+        FivePmModel GetApplicableTimeZones();
     }
 }
