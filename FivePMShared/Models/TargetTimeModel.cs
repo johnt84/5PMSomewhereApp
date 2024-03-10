@@ -5,5 +5,6 @@
         public string TimeZoneName { get; set; } = string.Empty;
         public int UtcOffset { get; set; }
         public DateTime TimeAtOffset { get; set; }
+        public IEnumerable<string> Countries { get; set; } = null!;
     }
 }

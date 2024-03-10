@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="RESTCountries.NET" Version="3.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\FivePMShared\FivePMShared.csproj" />
   </ItemGroup>
 

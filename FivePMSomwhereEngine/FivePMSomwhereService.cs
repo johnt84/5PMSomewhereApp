@@ -4,6 +4,13 @@ namespace FivePMSomwhereEngine
 {
     public class FivePmSomwhereService
     {
+        private readonly ICountriesService _countriesService;
+
+        public FivePmSomwhereService(ICountriesService countriesService)
+        {
+            _countriesService = countriesService;
+        }
+
         public const int TargetHour = 17;
            
         public FivePmModel GetApplicableTimeZones()
@@ -39,7 +46,8 @@ namespace FivePMSomwhereEngine
                                            TimeZoneName = timeZone.DisplayName,
                                            UtcOffset = timeZone.BaseUtcOffset.Hours,
                                            TimeAtOffset = currentDate.AddHours(timeZone.BaseUtcOffset.Hours),
-                                           NumberOfMinutesAfterTarget = (currentDate.AddHours(timeZone.BaseUtcOffset.Hours) - targetDate).Minutes
+                                           NumberOfMinutesAfterTarget = (currentDate.AddHours(timeZone.BaseUtcOffset.Hours) - targetDate).Minutes,
+                                           Countries = _countriesService.GetCountriesByTimeZone(timeZone.DisplayName)
                                        });
 
             var nextTimeZones = timeZones
@@ -49,7 +57,8 @@ namespace FivePMSomwhereEngine
                                     TimeZoneName = timeZone.DisplayName,
                                     UtcOffset = timeZone.BaseUtcOffset.Hours,
                                     TimeAtOffset = currentDate.AddHours(timeZone.BaseUtcOffset.Hours),
-                                    NumberOfMinutesBeforeTarget = (targetDate - currentDate.AddHours(timeZone.BaseUtcOffset.Hours)).Minutes
+                                    NumberOfMinutesBeforeTarget = (targetDate - currentDate.AddHours(timeZone.BaseUtcOffset.Hours)).Minutes,
+                                    Countries = _countriesService.GetCountriesByTimeZone(timeZone.DisplayName)
                                 });
 
             return new FivePmModel()
