@@ -13,17 +13,15 @@ public class FivePMSomewhereService
 
     public const int TargetHour = 17;
            
-    public FivePmModel GetApplicableTimeZones()
+    public FivePmModel GetApplicableTimeZones(DateTime searchDate)
     {
         var targetTime = new TimeSpan(TargetHour, 0, 0);
             
         var timeZones = TimeZoneInfo.GetSystemTimeZones();
 
-        var currentDate = DateTime.UtcNow;
+        var targetDate = new DateTime(searchDate.Year, searchDate.Month, searchDate.Day, TargetHour, 0, 0);
 
-        var targetDate = new DateTime(currentDate.Year, currentDate.Month, currentDate.Day, TargetHour, 0, 0);
-
-        int numberOfHours = TargetHour - currentDate.Hour;
+        int numberOfHours = TargetHour - searchDate.Hour;
 
         if (timeZones is null)
         {
@@ -45,8 +43,8 @@ public class FivePMSomewhereService
                                     {
                                         TimeZoneName = timeZone.DisplayName,
                                         UtcOffset = timeZone.BaseUtcOffset.Hours,
-                                        TimeAtOffset = currentDate.AddHours(timeZone.BaseUtcOffset.Hours),
-                                        NumberOfMinutesAfterTarget = (currentDate.AddHours(timeZone.BaseUtcOffset.Hours) - targetDate).Minutes,
+                                        TimeAtOffset = searchDate.AddHours(timeZone.BaseUtcOffset.Hours),
+                                        NumberOfMinutesAfterTarget = (searchDate.AddHours(timeZone.BaseUtcOffset.Hours) - targetDate).Minutes,
                                         Countries = _countriesService.GetCountriesByTimeZone(timeZone.DisplayName)
                                     });
 
@@ -56,8 +54,8 @@ public class FivePMSomewhereService
                             {
                                 TimeZoneName = timeZone.DisplayName,
                                 UtcOffset = timeZone.BaseUtcOffset.Hours,
-                                TimeAtOffset = currentDate.AddHours(timeZone.BaseUtcOffset.Hours),
-                                NumberOfMinutesBeforeTarget = (targetDate - currentDate.AddHours(timeZone.BaseUtcOffset.Hours)).Minutes,
+                                TimeAtOffset = searchDate.AddHours(timeZone.BaseUtcOffset.Hours),
+                                NumberOfMinutesBeforeTarget = (targetDate - searchDate.AddHours(timeZone.BaseUtcOffset.Hours)).Minutes,
                                 Countries = _countriesService.GetCountriesByTimeZone(timeZone.DisplayName)
                             });
 

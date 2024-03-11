@@ -4,7 +4,7 @@ var countriesService = new CountriesService();
 
 var fivePMSomewhereService = new FivePMSomewhereService(countriesService);
 
-var applicableTimeZones = fivePMSomewhereService.GetApplicableTimeZones();
+var applicableTimeZones = fivePMSomewhereService.GetApplicableTimeZones(DateTime.UtcNow);
 
 var firstPreviousTimeZone = applicableTimeZones.PreviousTimezones.First();
 
