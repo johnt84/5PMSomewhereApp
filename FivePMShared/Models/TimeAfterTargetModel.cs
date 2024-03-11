@@ -1,7 +1,6 @@
-﻿namespace FivePMShared.Models
+﻿namespace FivePMShared.Models;
+
+public class TimeAfterTargetModel : TargetTimeModel
 {
-    public class TimeAfterTargetModel : TargetTimeModel
-    {
-        public int NumberOfMinutesAfterTarget { get; set; }
-    }
+    public int NumberOfMinutesAfterTarget { get; set; }
 }

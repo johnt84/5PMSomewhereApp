@@ -5,9 +5,9 @@ VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FivePMSomewhereConsoleApp", "FivePMSomewhereApp\FivePMSomewhereConsoleApp.csproj", "{1BB9D327-9D27-4030-A7C2-B5D7A5D38AD4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FivePMSomwhereEngine", "FivePMSomwhereEngine\FivePMSomwhereEngine.csproj", "{322C4730-AA59-48DE-A692-439C71358F97}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FivePMSomewhereEngine", "FivePMSomwhereEngine\FivePMSomewhereEngine.csproj", "{322C4730-AA59-48DE-A692-439C71358F97}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FivePMShared", "FivePMShared\FivePMShared.csproj", "{271497C8-E10E-40AB-8E56-6A2502D10953}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FivePMShared", "FivePMShared\FivePMShared.csproj", "{271497C8-E10E-40AB-8E56-6A2502D10953}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

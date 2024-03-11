@@ -1,9 +1,8 @@
 ﻿using FivePMShared.Models;
 
-namespace FivePMSomwhereEngine
+namespace FivePMSomewhereEngine;
+
+public interface IFivePmSomewhereService
 {
-    public interface IFivePmSomewhereService
-    {
-        FivePmModel GetApplicableTimeZones();
-    }
+    FivePmModel GetApplicableTimeZones();
 }

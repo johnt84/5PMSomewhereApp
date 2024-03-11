@@ -1,10 +1,9 @@
-﻿namespace FivePMShared.Models
+﻿namespace FivePMShared.Models;
+
+public class TargetTimeModel
 {
-    public class TargetTimeModel
-    {
-        public string TimeZoneName { get; set; } = string.Empty;
-        public int UtcOffset { get; set; }
-        public DateTime TimeAtOffset { get; set; }
-        public IEnumerable<string> Countries { get; set; } = null!;
-    }
+    public string TimeZoneName { get; set; } = string.Empty;
+    public int UtcOffset { get; set; }
+    public DateTime TimeAtOffset { get; set; }
+    public IEnumerable<string> Countries { get; set; } = null!;
 }

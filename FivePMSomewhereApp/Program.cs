@@ -1,8 +1,8 @@
-﻿using FivePMSomwhereEngine;
+﻿using FivePMSomewhereEngine;
 
 var countriesService = new CountriesService();
 
-var fivePMSomewhereService = new FivePmSomwhereService(countriesService);
+var fivePMSomewhereService = new FivePMSomewhereService(countriesService);
 
 var applicableTimeZones = fivePMSomewhereService.GetApplicableTimeZones();
 

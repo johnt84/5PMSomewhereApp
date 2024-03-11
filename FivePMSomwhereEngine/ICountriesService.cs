@@ -1,7 +1,6 @@
-﻿namespace FivePMSomwhereEngine
+﻿namespace FivePMSomewhereEngine;
+
+public interface ICountriesService
 {
-    public interface ICountriesService
-    {
-        IEnumerable<string> GetCountriesByTimeZone(string timeZoneName);
-    }
+    IEnumerable<string> GetCountriesByTimeZone(string timeZoneName);
 }
