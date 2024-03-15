@@ -4,38 +4,55 @@ var countriesService = new CountriesService();
 
 var fivePMSomewhereService = new FivePMSomewhereService(countriesService);
 
-var applicableTimeZones = fivePMSomewhereService.GetApplicableTimeZones(DateTime.UtcNow);
+var currentDate = DateTime.UtcNow;
 
-var firstPreviousTimeZone = applicableTimeZones.PreviousTimezones.First();
+//var targetDate = new DateTime(currentDate.Year, currentDate.Month, currentDate.Day, 17, 10, 0);
 
-int numberOfMinutesAfterTarget = firstPreviousTimeZone.NumberOfMinutesAfterTarget;
-var timeAtTimeZoneAfterTarget = firstPreviousTimeZone.TimeAtOffset;
+var applicableTimeZones = fivePMSomewhereService.GetApplicableTimeZones(currentDate);
 
-Console.WriteLine($"It was 5 PM in these TimeZones {numberOfMinutesAfterTarget} minutes ago");
-Console.WriteLine($"\nTime is {timeAtTimeZoneAfterTarget}");
-
-foreach (var timeZone in applicableTimeZones.PreviousTimezones)
+if (applicableTimeZones.CurrentTimeZones is not null)
 {
-    Console.WriteLine($"\nTimeZone {timeZone.TimeZoneName}");
+    Console.WriteLine("It is currently 5 PM at...");
 
-    Console.WriteLine($"Countries - {string.Join(", ", timeZone.Countries)}");
+    foreach (var timeZone in applicableTimeZones.CurrentTimeZones)
+    {
+        Console.WriteLine($"\nTimeZone {timeZone.TimeZoneName}");
+
+        Console.WriteLine($"Countries - {string.Join(", ", timeZone.Countries)}");
+    }
 }
-
-var firstNextTimeZone = applicableTimeZones.NextTimeZones.First();
-
-int numberOfMinutesBeforeTarget = firstNextTimeZone.NumberOfMinutesBeforeTarget;
-var timeAtTimeZoneBeforeTarget = firstNextTimeZone.TimeAtOffset;
-
-Console.WriteLine($"\n\nWill be 5 PM in these TimeZones in {numberOfMinutesBeforeTarget} minutes");
-Console.WriteLine($"\nTime is {timeAtTimeZoneBeforeTarget}");
-
-foreach (var timeZone in applicableTimeZones.NextTimeZones)
+else
 {
-    Console.WriteLine($"\nTimeZone {timeZone.TimeZoneName}");
+    var firstPreviousTimeZone = applicableTimeZones.PreviousTimeZones.First();
 
-    Console.WriteLine($"Countries - {string.Join(", ", timeZone.Countries)}");
+    int numberOfMinutesAfterTarget = firstPreviousTimeZone.NumberOfMinutesAfterTarget;
+    var timeAtTimeZoneAfterTarget = firstPreviousTimeZone.TimeAtOffset;
+
+    Console.WriteLine($"It was 5 PM in these TimeZones {numberOfMinutesAfterTarget} minutes ago");
+    Console.WriteLine($"\nTime is {timeAtTimeZoneAfterTarget}");
+
+    foreach (var timeZone in applicableTimeZones.PreviousTimeZones)
+    {
+        Console.WriteLine($"\nTimeZone {timeZone.TimeZoneName}");
+
+        Console.WriteLine($"Countries - {string.Join(", ", timeZone.Countries)}");
+    }
+
+    var firstNextTimeZone = applicableTimeZones.NextTimeZones.First();
+
+    int numberOfMinutesBeforeTarget = firstNextTimeZone.NumberOfMinutesBeforeTarget;
+    var timeAtTimeZoneBeforeTarget = firstNextTimeZone.TimeAtOffset;
+
+    Console.WriteLine($"\n\nWill be 5 PM in these TimeZones in {numberOfMinutesBeforeTarget} minutes");
+    Console.WriteLine($"\nTime is {timeAtTimeZoneBeforeTarget}");
+
+    foreach (var timeZone in applicableTimeZones.NextTimeZones)
+    {
+        Console.WriteLine($"\nTimeZone {timeZone.TimeZoneName}");
+
+        Console.WriteLine($"Countries - {string.Join(", ", timeZone.Countries)}");
+    }
 }
-
 
 Console.WriteLine("\nPress any key to continue..");
 Console.ReadLine();

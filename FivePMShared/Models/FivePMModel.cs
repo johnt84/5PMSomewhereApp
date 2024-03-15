@@ -2,6 +2,7 @@
 
 public class FivePmModel
 {
-    public IEnumerable<TimeAfterTargetModel> PreviousTimezones { get; set; } = null!;
+    public IEnumerable<TargetTimeModel> CurrentTimeZones { get; set; } = null!;
+    public IEnumerable<TimeAfterTargetModel> PreviousTimeZones { get; set; } = null!;
     public IEnumerable<TimeBeforeTargetModel> NextTimeZones { get; set; } = null!;
 }
