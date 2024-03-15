@@ -4,11 +4,9 @@ var countriesService = new CountriesService();
 
 var fivePMSomewhereService = new FivePMSomewhereService(countriesService);
 
-var currentDate = DateTime.UtcNow;
+//var targetDate = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, DateTime.UtcNow.Day, 22, 00, 0);
 
-//var targetDate = new DateTime(currentDate.Year, currentDate.Month, currentDate.Day, 17, 10, 0);
-
-var applicableTimeZones = fivePMSomewhereService.GetApplicableTimeZones(currentDate);
+var applicableTimeZones = fivePMSomewhereService.GetApplicableTimeZones();
 
 if (applicableTimeZones.CurrentTimeZones is not null)
 {

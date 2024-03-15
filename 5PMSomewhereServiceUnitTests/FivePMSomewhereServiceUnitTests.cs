@@ -12,6 +12,7 @@ namespace FivePMSomewhereUnitTests
         private ICountriesService _countriesService;
 
         private const int AustraliaTargetHour = 7;
+        private const int USTargetHour = 22;
         private const int NumberOfMinutesInAnHour = 60;
 
         public FivePMSomewhereServiceUnitTests()
@@ -215,11 +216,109 @@ namespace FivePMSomewhereUnitTests
             timeZone.Countries.Contains(Countries.Australia).Should().BeTrue();
         }
 
+        [TestMethod]
+        public void TimeAtTargetDateWithUSTimeZone_CurrentTimeZonesReturnedOnlyAndCountriesContainsUSA()
+        {
+            // Arrange
+            var currentDate = DateTime.UtcNow;
+
+            var targetDate = new DateTime(currentDate.Year, currentDate.Month, currentDate.Day, USTargetHour, 0, 0);
+
+            var countriesList = new List<string>()
+            {
+                Countries.USA
+            };
+
+            _countriesService.GetCountriesByTimeZone(TimeZoneNames.USTimeZoneName).Returns(countriesList);
+
+            // Act
+            var applicableTimeZones = CallService(targetDate);
+
+            // Assert
+            applicableTimeZones.CurrentTimeZones.Should().NotBeNull();
+            applicableTimeZones.PreviousTimeZones.Should().BeNull();
+            applicableTimeZones.NextTimeZones.Should().BeNull();
+
+            var timeZone = applicableTimeZones.CurrentTimeZones
+                                .Where(timeZone => timeZone.TimeZoneName == TimeZoneNames.USTimeZoneName)
+                                .First();
+
+            timeZone.Countries.Contains(Countries.USA).Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void TimeBeforeTargetDateWithUSTimeZone_PreviousAndNextTimeZonesReturnedAndNextCountriesContainsUSA()
+        {
+            // Arrange
+            const int numberOfMinutesBeforeTarget = 10;
+
+            var currentDate = DateTime.UtcNow;
+
+            int offsetHours = USTargetHour - 1;
+            int offsetMinutes = NumberOfMinutesInAnHour - numberOfMinutesBeforeTarget;
+
+            var targetDate = new DateTime(currentDate.Year, currentDate.Month, currentDate.Day, offsetHours, offsetMinutes, 0);
+
+            var countriesList = new List<string>()
+            {
+                Countries.USA
+            };
+
+            _countriesService.GetCountriesByTimeZone(TimeZoneNames.USTimeZoneName).Returns(countriesList);
+
+            // Act
+            var applicableTimeZones = CallService(targetDate);
+
+            // Assert
+            applicableTimeZones.CurrentTimeZones.Should().BeNull();
+            applicableTimeZones.PreviousTimeZones.Should().NotBeNull();
+            applicableTimeZones.NextTimeZones.Should().NotBeNull();
+
+            var timeZone = applicableTimeZones.NextTimeZones
+                                .Where(timeZone => timeZone.TimeZoneName == TimeZoneNames.USTimeZoneName)
+                                .First();
+
+            timeZone.Countries.Contains(Countries.USA).Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void TimeAfterTargetDateWithUSTimeZone_PreviousAndNextTimeZonesReturnedAndPreviousCountriesContainsUSA()
+        {
+            // Arrange
+            const int numberOfMinutesAfterTarget = 10;
+
+            var currentDate = DateTime.UtcNow;
+
+            var targetDate = new DateTime(currentDate.Year, currentDate.Month, currentDate.Day, USTargetHour, numberOfMinutesAfterTarget, 0);
+
+            var countriesList = new List<string>()
+            {
+                Countries.USA
+            };
+
+            _countriesService.GetCountriesByTimeZone(TimeZoneNames.USTimeZoneName).Returns(countriesList);
+
+            // Act
+            var applicableTimeZones = CallService(targetDate);
+
+            // Assert
+            applicableTimeZones.CurrentTimeZones.Should().BeNull();
+            applicableTimeZones.PreviousTimeZones.Should().NotBeNull();
+            applicableTimeZones.NextTimeZones.Should().NotBeNull();
+
+            var timeZone = applicableTimeZones.PreviousTimeZones
+                                .Where(timeZone => timeZone.TimeZoneName == TimeZoneNames.USTimeZoneName)
+                                .First();
+
+            timeZone.NumberOfMinutesAfterTarget.Should().Be(numberOfMinutesAfterTarget);
+            timeZone.Countries.Contains(Countries.USA).Should().BeTrue();
+        }
+
         private FivePmModel CallService(DateTime searchDate)
         {
             var fivePMSomewhereService = new FivePMSomewhereService(_countriesService);
 
-            return fivePMSomewhereService.GetApplicableTimeZones(searchDate);
+            return fivePMSomewhereService.GetApplicableTimeZones(searchDate: searchDate);
         }
     }
 }

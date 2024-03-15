@@ -4,5 +4,5 @@ namespace FivePMSomewhereEngine;
 
 public interface IFivePmSomewhereService
 {
-    FivePmModel GetApplicableTimeZones();
+    FivePmModel GetApplicableTimeZones(DateTime? searchDate);
 }
