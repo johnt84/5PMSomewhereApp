@@ -1,4 +1,5 @@
-﻿using RESTCountries.NET.Models;
+﻿using FivePMShared.Constants;
+using RESTCountries.NET.Models;
 using RESTCountries.NET.Services;
 
 namespace FivePMSomewhereEngine;
@@ -25,6 +26,13 @@ public class CountriesService : ICountriesService
     {
         var countries = GetCountriesByTimeZone(timeZoneName);
 
+        string? selectableCountry = GetSelectableCountry(countries, timeZoneName);
+
+        if (!string.IsNullOrEmpty(selectableCountry))
+        {
+            return selectableCountry;
+        }
+
         var rand = new Random();
         int countryIndex = rand.Next(countries.Count());
 
@@ -36,5 +44,22 @@ public class CountriesService : ICountriesService
         var timeZoneNameSplit = timeZoneName.Split(")").ToList();
 
         return timeZoneNameSplit[0].Replace("(", string.Empty);
+    }
+    
+    private string? GetSelectableCountry(IEnumerable<string> countries, string timeZoneName)
+    {
+        string? selectableCountry = null;
+        
+        foreach(var country in countries)
+        {
+            if (Countries.Values.Contains(country) && TimeZoneNames.Values.Contains(timeZoneName))
+            {
+                selectableCountry = country;
+
+                break;
+            }
+        }
+
+        return selectableCountry;
     }
 }
