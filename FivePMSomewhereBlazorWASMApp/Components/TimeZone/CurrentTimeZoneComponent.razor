@@ -1,0 +1,16 @@
+﻿@if (TimeZone is not null)
+{
+    <MudField>It's currently 5 PM in @TimeZone.RandomCountry</MudField>
+
+    <TimeZone Name="@TimeZone.TimeZoneName" />
+
+    <CountriesComponent Countries="@TimeZone.Countries" />
+}
+
+@code{
+    [Inject]
+    private IFivePMSomewhereService FivePMSomewhereService { get; set; } = null!;
+    
+    [Parameter]
+    public TargetTimeModel? TimeZone { get; set; }
+}

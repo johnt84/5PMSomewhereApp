@@ -3,7 +3,7 @@ using FivePMShared.Models;
 
 namespace FivePMSomewhereEngine;
 
-public class FivePMSomewhereService
+public class FivePMSomewhereService : IFivePMSomewhereService
 {
     private readonly ICountriesService _countriesService;
 
@@ -116,4 +116,6 @@ public class FivePMSomewhereService
             PreviousTimeZones = previousTimeZones
         };
     }
+
+    public string GetCountries(IEnumerable<string> countries) => string.Join(", ", countries);
 }

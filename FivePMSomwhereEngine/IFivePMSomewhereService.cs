@@ -2,7 +2,8 @@
 
 namespace FivePMSomewhereEngine;
 
-public interface IFivePmSomewhereService
+public interface IFivePMSomewhereService
 {
-    FivePmModel GetApplicableTimeZones(DateTime? searchDate);
+    FivePmModel GetApplicableTimeZones(DateTime? searchDate = null);
+    string GetCountries(IEnumerable<string> countries);
 }

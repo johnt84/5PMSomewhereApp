@@ -1,0 +1,14 @@
+﻿@if (Countries is not null && Countries.Count() > 1)
+{
+    <MudTextField Value="FivePMSomewhereService.GetCountries(Countries)" Label="Countries:" Variant="Variant.Text"></MudTextField>
+}
+
+@code
+{
+    [Parameter]
+    public IEnumerable<string>? Countries { get; set; }
+
+    [Inject]
+    private IFivePMSomewhereService FivePMSomewhereService { get; set; } = null!;
+
+}

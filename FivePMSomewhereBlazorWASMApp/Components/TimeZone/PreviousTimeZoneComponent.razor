@@ -1,0 +1,13 @@
+﻿@if (TimeZone is not null)
+{
+    <MudField>It was 5 PM @TimeZone.NumberOfMinutesAfterTarget minutes ago in @TimeZone.RandomCountry</MudField>
+
+    <TimeZone Name="@TimeZone.TimeZoneName" />
+
+    <CountriesComponent Countries="@TimeZone.Countries" />
+}
+
+@code {
+    [Parameter]
+    public TimeAfterTargetModel? TimeZone { get; set; }
+}
