@@ -53,7 +53,8 @@ public class FivePMSomewhereService
                                         TimeZoneName = timeZone.DisplayName,
                                         UtcOffset = timeZone.BaseUtcOffset.Hours,
                                         TimeAtOffset = date.AddHours(timeZone.BaseUtcOffset.Hours),
-                                        Countries = _countriesService.GetCountriesByTimeZone(timeZone.DisplayName)
+                                        Countries = _countriesService.GetCountriesByTimeZone(timeZone.DisplayName),
+                                        RandomCountry = _countriesService.GetRandomCountryByTimeZone(timeZone.DisplayName)
                                     })
             };
         }
@@ -65,7 +66,8 @@ public class FivePMSomewhereService
                                        TimeZoneName = timeZone.DisplayName,
                                        UtcOffset = timeZone.BaseUtcOffset.Hours,
                                        TimeAtOffset = date.AddHours(timeZone.BaseUtcOffset.Hours),
-                                       Countries = _countriesService.GetCountriesByTimeZone(timeZone.DisplayName)
+                                       Countries = _countriesService.GetCountriesByTimeZone(timeZone.DisplayName),
+                                       RandomCountry = _countriesService.GetRandomCountryByTimeZone(timeZone.DisplayName)
                                    });
 
         if (currentTimeZones.Any())
@@ -90,7 +92,8 @@ public class FivePMSomewhereService
                                         UtcOffset = timeZone.BaseUtcOffset.Hours,
                                         TimeAtOffset = date.AddHours(timeZone.BaseUtcOffset.Hours),
                                         NumberOfMinutesAfterTarget = (date.AddHours(timeZone.BaseUtcOffset.Hours) - targetDate).Minutes,
-                                        Countries = _countriesService.GetCountriesByTimeZone(timeZone.DisplayName)
+                                        Countries = _countriesService.GetCountriesByTimeZone(timeZone.DisplayName),
+                                        RandomCountry = _countriesService.GetRandomCountryByTimeZone(timeZone.DisplayName)
                                     });
 
         var nextTimeZones = timeZones
@@ -101,8 +104,11 @@ public class FivePMSomewhereService
                                 UtcOffset = timeZone.BaseUtcOffset.Hours,
                                 TimeAtOffset = date.AddHours(timeZone.BaseUtcOffset.Hours),
                                 NumberOfMinutesBeforeTarget = (targetDate - date.AddHours(timeZone.BaseUtcOffset.Hours)).Minutes,
-                                Countries = _countriesService.GetCountriesByTimeZone(timeZone.DisplayName)
+                                Countries = _countriesService.GetCountriesByTimeZone(timeZone.DisplayName),
+                                RandomCountry = _countriesService.GetRandomCountryByTimeZone(timeZone.DisplayName)
                             });
+
+        nextTimeZones.ToList().ForEach(TimeZone => TimeZone.RandomCountry = TimeZone.Countries?.FirstOrDefault() ?? string.Empty);
 
         return new FivePmModel()
         {

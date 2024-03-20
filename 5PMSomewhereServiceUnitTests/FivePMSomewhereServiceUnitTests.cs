@@ -34,6 +34,7 @@ namespace FivePMSomewhereUnitTests
             };
 
             _countriesService.GetCountriesByTimeZone(TimeZoneNames.GMTTimeZoneName).Returns(countriesList);
+            _countriesService.GetRandomCountryByTimeZone(TimeZoneNames.GMTTimeZoneName).Returns(Countries.UnitedKingdom);
 
             // Act
             var applicableTimeZones = CallService(targetDate);
@@ -48,6 +49,7 @@ namespace FivePMSomewhereUnitTests
                                 .First();
 
             timeZone.Countries.Contains(Countries.UnitedKingdom).Should().BeTrue();
+            timeZone.RandomCountry.Should().Be(Countries.UnitedKingdom);
         }
 
         [TestMethod]
@@ -69,6 +71,7 @@ namespace FivePMSomewhereUnitTests
             };
 
             _countriesService.GetCountriesByTimeZone(TimeZoneNames.GMTTimeZoneName).Returns(countriesList);
+            _countriesService.GetRandomCountryByTimeZone(TimeZoneNames.GMTTimeZoneName).Returns(Countries.UnitedKingdom);
 
             // Act
             var applicableTimeZones = CallService(targetDate);
@@ -83,6 +86,7 @@ namespace FivePMSomewhereUnitTests
                                 .First();
 
             timeZone.Countries.Contains(Countries.UnitedKingdom).Should().BeTrue();
+            timeZone.RandomCountry.Should().Be(Countries.UnitedKingdom);
         }
 
         [TestMethod]
@@ -101,6 +105,7 @@ namespace FivePMSomewhereUnitTests
             };
 
             _countriesService.GetCountriesByTimeZone(TimeZoneNames.GMTTimeZoneName).Returns(countriesList);
+            _countriesService.GetRandomCountryByTimeZone(TimeZoneNames.GMTTimeZoneName).Returns(Countries.UnitedKingdom);
 
             // Act
             var applicableTimeZones = CallService(targetDate);
@@ -132,6 +137,7 @@ namespace FivePMSomewhereUnitTests
             };
 
             _countriesService.GetCountriesByTimeZone(TimeZoneNames.AustralianTimeZoneName).Returns(countriesList);
+            _countriesService.GetRandomCountryByTimeZone(TimeZoneNames.AustralianTimeZoneName).Returns(Countries.Australia);
 
             // Act
             var applicableTimeZones = CallService(targetDate);
@@ -146,6 +152,7 @@ namespace FivePMSomewhereUnitTests
                                 .First();
 
             timeZone.Countries.Contains(Countries.Australia).Should().BeTrue();
+            timeZone.RandomCountry.Should().Be(Countries.Australia);
         }
 
         //[TestMethod]
@@ -167,6 +174,7 @@ namespace FivePMSomewhereUnitTests
         //    };
 
         //    _countriesService.GetCountriesByTimeZone(TimeZoneNames.AustralianTimeZoneName).Returns(countriesList);
+        //    _countriesService.GetRandomCountryByTimeZone(TimeZoneNames.AustralianTimeZoneName).Returns(Countries.Australia);
 
         //    // Act
         //    var applicableTimeZones = CallService(targetDate);
@@ -181,6 +189,7 @@ namespace FivePMSomewhereUnitTests
         //                        .First();
 
         //    timeZone.Countries.Contains(Countries.Australia).Should().BeTrue();
+        //    timeZone.RandomCountry.Should().Be(Countries.Australia);
         //}
 
         [TestMethod]
@@ -199,6 +208,7 @@ namespace FivePMSomewhereUnitTests
             };
 
             _countriesService.GetCountriesByTimeZone(TimeZoneNames.AustralianTimeZoneName).Returns(countriesList);
+            _countriesService.GetRandomCountryByTimeZone(TimeZoneNames.AustralianTimeZoneName).Returns(Countries.Australia);
 
             // Act
             var applicableTimeZones = CallService(targetDate);
@@ -214,6 +224,7 @@ namespace FivePMSomewhereUnitTests
 
             timeZone.NumberOfMinutesAfterTarget.Should().Be(numberOfMinutesAfterTarget);    
             timeZone.Countries.Contains(Countries.Australia).Should().BeTrue();
+            timeZone.RandomCountry.Should().Be(Countries.Australia);
         }
 
         [TestMethod]
@@ -230,6 +241,7 @@ namespace FivePMSomewhereUnitTests
             };
 
             _countriesService.GetCountriesByTimeZone(TimeZoneNames.USTimeZoneName).Returns(countriesList);
+            _countriesService.GetRandomCountryByTimeZone(TimeZoneNames.USTimeZoneName).Returns(Countries.USA);
 
             // Act
             var applicableTimeZones = CallService(targetDate);
@@ -244,6 +256,7 @@ namespace FivePMSomewhereUnitTests
                                 .First();
 
             timeZone.Countries.Contains(Countries.USA).Should().BeTrue();
+            timeZone.RandomCountry.Should().Be(Countries.USA);
         }
 
         [TestMethod]
@@ -265,6 +278,7 @@ namespace FivePMSomewhereUnitTests
             };
 
             _countriesService.GetCountriesByTimeZone(TimeZoneNames.USTimeZoneName).Returns(countriesList);
+            _countriesService.GetRandomCountryByTimeZone(TimeZoneNames.USTimeZoneName).Returns(Countries.USA);
 
             // Act
             var applicableTimeZones = CallService(targetDate);
@@ -279,6 +293,7 @@ namespace FivePMSomewhereUnitTests
                                 .First();
 
             timeZone.Countries.Contains(Countries.USA).Should().BeTrue();
+            timeZone.RandomCountry.Should().Be(Countries.USA);
         }
 
         [TestMethod]
@@ -297,6 +312,7 @@ namespace FivePMSomewhereUnitTests
             };
 
             _countriesService.GetCountriesByTimeZone(TimeZoneNames.USTimeZoneName).Returns(countriesList);
+            _countriesService.GetRandomCountryByTimeZone(TimeZoneNames.USTimeZoneName).Returns(Countries.USA);
 
             // Act
             var applicableTimeZones = CallService(targetDate);
@@ -312,6 +328,7 @@ namespace FivePMSomewhereUnitTests
 
             timeZone.NumberOfMinutesAfterTarget.Should().Be(numberOfMinutesAfterTarget);
             timeZone.Countries.Contains(Countries.USA).Should().BeTrue();
+            timeZone.RandomCountry.Should().Be(Countries.USA);
         }
 
         private FivePmModel CallService(DateTime searchDate)

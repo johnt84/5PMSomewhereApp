@@ -17,6 +17,8 @@ if (applicableTimeZones.CurrentTimeZones is not null)
         Console.WriteLine($"\nTimeZone {timeZone.TimeZoneName}");
 
         Console.WriteLine($"Countries - {string.Join(", ", timeZone.Countries)}");
+
+        Console.WriteLine($"First Country - {timeZone.RandomCountry}");
     }
 }
 else
@@ -34,6 +36,8 @@ else
         Console.WriteLine($"\nTimeZone {timeZone.TimeZoneName}");
 
         Console.WriteLine($"Countries - {string.Join(", ", timeZone.Countries)}");
+
+        Console.WriteLine($"Random Country - {timeZone.RandomCountry}");
     }
 
     var firstNextTimeZone = applicableTimeZones.NextTimeZones.First();
@@ -49,6 +53,8 @@ else
         Console.WriteLine($"\nTimeZone {timeZone.TimeZoneName}");
 
         Console.WriteLine($"Countries - {string.Join(", ", timeZone.Countries)}");
+
+        Console.WriteLine($"Random Country - {timeZone.RandomCountry}");
     }
 }
 

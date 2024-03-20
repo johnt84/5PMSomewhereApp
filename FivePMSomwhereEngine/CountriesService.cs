@@ -21,6 +21,16 @@ public class CountriesService : ICountriesService
                 .Select(country => country.Name.Common);
     }
 
+    public string GetRandomCountryByTimeZone(string timeZoneName)
+    {
+        var countries = GetCountriesByTimeZone(timeZoneName);
+
+        var rand = new Random();
+        int countryIndex = rand.Next(countries.Count());
+
+        return countries.ToArray()[countryIndex];
+    }
+
     private string GetTimeZoneForCountrySearch(string timeZoneName)
     {
         var timeZoneNameSplit = timeZoneName.Split(")").ToList();

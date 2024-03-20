@@ -6,4 +6,5 @@ public class TargetTimeModel
     public int UtcOffset { get; set; }
     public DateTime TimeAtOffset { get; set; }
     public IEnumerable<string> Countries { get; set; } = null!;
+    public string RandomCountry { get; set; } = string.Empty;
 }
