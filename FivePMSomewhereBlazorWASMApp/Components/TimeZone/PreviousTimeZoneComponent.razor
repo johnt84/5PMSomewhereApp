@@ -1,6 +1,8 @@
 ﻿@if (TimeZone is not null)
 {
-    <MudField>It was 5 PM @TimeZone.NumberOfMinutesAfterTarget minutes ago in @TimeZone.RandomCountry</MudField>
+    <MudText Typo="Typo.body1" Class="mt-5 mb-2">
+        It was 5 PM @TimeZone.NumberOfMinutesAfterTarget minutes ago in @TimeZone.RandomCountry
+    </MudText>
 
     <TimeZone Name="@TimeZone.TimeZoneName" />
 
