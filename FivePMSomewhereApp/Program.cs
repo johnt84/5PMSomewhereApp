@@ -1,12 +1,13 @@
 ﻿using FivePMSomewhereEngine;
+using FivePMSomewhereShared.Constants;
 
 var countriesService = new CountriesService();
 
 var fivePMSomewhereService = new FivePMSomewhereService(countriesService);
 
-//var targetDate = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, DateTime.UtcNow.Day, 22, 00, 0);
+var targetDate = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, DateTime.UtcNow.Day, 17, 00, 0);
 
-var applicableTimeZones = fivePMSomewhereService.GetApplicableTimeZones();
+var applicableTimeZones = fivePMSomewhereService.GetApplicableTimeZones(searchDate: targetDate, currentCountry: Countries.UnitedKingdom);
 
 if (applicableTimeZones.CurrentTimeZones is not null)
 {

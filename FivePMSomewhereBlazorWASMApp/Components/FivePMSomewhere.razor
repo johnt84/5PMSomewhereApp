@@ -1,4 +1,11 @@
-﻿<FivePMIn CurrentTimeZone="CurrentTimeZone" PreviousTimeZone="PreviousTimeZone" />
+﻿<MudStack Row="true">
+    <FivePMIn CurrentTimeZone="CurrentTimeZone" PreviousTimeZone="PreviousTimeZone" />
+
+    <MudTooltip Text="Refresh">
+        <MudIconButton Icon="@Icons.Material.Filled.Refresh" OnClick="btnRefreshClick" Class="mt-4" />
+    </MudTooltip>
+</MudStack>
+
 
 <CurrentDate />
 

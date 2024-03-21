@@ -22,7 +22,7 @@ public class CountriesService : ICountriesService
                 .Select(country => country.Name.Common);
     }
 
-    public string GetRandomCountryByTimeZone(string timeZoneName)
+    public string GetRandomCountryByTimeZone(string timeZoneName, string? currentCountry = null)
     {
         var countries = GetCountriesByTimeZone(timeZoneName);
 
@@ -33,15 +33,22 @@ public class CountriesService : ICountriesService
 
         string? selectableCountry = GetSelectableCountry(countries, timeZoneName);
 
-        if (!string.IsNullOrEmpty(selectableCountry))
+        if (!string.IsNullOrEmpty(selectableCountry) && selectableCountry != currentCountry)
         {
             return selectableCountry;
         }
 
-        var rand = new Random();
-        int countryIndex = rand.Next(countries.Count());
+        string randomCountry = string.Empty;
 
-        return countries.ToArray()[countryIndex];
+       while (randomCountry == string.Empty || (randomCountry == currentCountry))
+        {
+            var rand = new Random();
+            int countryIndex = rand.Next(countries.Count());
+
+            randomCountry = countries.ToArray()[countryIndex];
+        }
+
+        return randomCountry;
     }
 
     private string GetTimeZoneForCountrySearch(string timeZoneName)

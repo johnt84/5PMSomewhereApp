@@ -1,4 +1,5 @@
-﻿using FivePMSomewhereEngine;
+﻿using FivePMSomewhereBlazorWASMApp.Logic;
+using FivePMSomewhereEngine;
 using FivePMSomewhereShared.Models;
 using Microsoft.AspNetCore.Components;
 
@@ -12,10 +13,21 @@ namespace FivePMSomewhereBlazorWASMApp.Components
         private TargetTimeModel? CurrentTimeZone { get; set; }
         private TimeAfterTargetModel? PreviousTimeZone { get; set; }
         private TimeBeforeTargetModel? NextTimeZone { get; set; }
+        private string? Country => CountryLogic.GetCountry(CurrentTimeZone, PreviousTimeZone);
 
         protected override void OnInitialized()
         {
-            var applicableTimeZones = FivePMSomewhereService.GetApplicableTimeZones();
+            LoadTimeZones();
+        }
+
+        private void btnRefreshClick()
+        {
+            LoadTimeZones(currentCountry: Country);
+        }
+
+        private void LoadTimeZones(string? currentCountry = null)
+        {
+            var applicableTimeZones = FivePMSomewhereService.GetApplicableTimeZones(currentCountry: currentCountry);
 
             if (applicableTimeZones is not null)
             {
