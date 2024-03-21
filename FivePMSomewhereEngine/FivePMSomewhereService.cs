@@ -1,5 +1,5 @@
-﻿using FivePMShared.Constants;
-using FivePMShared.Models;
+﻿using FivePMSomewhereShared.Constants;
+using FivePMSomewhereShared.Models;
 
 namespace FivePMSomewhereEngine;
 
@@ -107,8 +107,6 @@ public class FivePMSomewhereService : IFivePMSomewhereService
                                 Countries = _countriesService.GetCountriesByTimeZone(timeZone.DisplayName),
                                 RandomCountry = _countriesService.GetRandomCountryByTimeZone(timeZone.DisplayName)
                             });
-
-        nextTimeZones.ToList().ForEach(TimeZone => TimeZone.RandomCountry = TimeZone.Countries?.FirstOrDefault() ?? string.Empty);
 
         return new FivePmModel()
         {

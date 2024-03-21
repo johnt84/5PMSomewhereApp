@@ -1,4 +1,4 @@
-﻿namespace FivePMShared.Models;
+﻿namespace FivePMSomewhereShared.Models;
 
 public class TimeBeforeTargetModel : TargetTimeModel
 {

@@ -1,5 +1,5 @@
-using FivePMShared.Constants;
-using FivePMShared.Models;
+using FivePMSomewhereShared.Constants;
+using FivePMSomewhereShared.Models;
 using FivePMSomewhereEngine;
 using FluentAssertions;
 using NSubstitute;

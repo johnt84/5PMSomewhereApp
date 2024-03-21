@@ -5,13 +5,13 @@ VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FivePMSomewhereConsoleApp", "FivePMSomewhereApp\FivePMSomewhereConsoleApp.csproj", "{1BB9D327-9D27-4030-A7C2-B5D7A5D38AD4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FivePMSomewhereEngine", "FivePMSomwhereEngine\FivePMSomewhereEngine.csproj", "{322C4730-AA59-48DE-A692-439C71358F97}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FivePMShared", "FivePMShared\FivePMShared.csproj", "{271497C8-E10E-40AB-8E56-6A2502D10953}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FivePMSomewhereUnitTests", "5PMSomewhereServiceUnitTests\FivePMSomewhereUnitTests.csproj", "{73C36072-A8AD-4C62-9C82-3B40DEC7C970}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FivePMSomewhereBlazorWASMApp", "FivePMSomewhereBlazorWASMApp\FivePMSomewhereBlazorWASMApp.csproj", "{18F45009-8162-412C-81C6-5FB26771875A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FivePMSomewhereBlazorWASMApp", "FivePMSomewhereBlazorWASMApp\FivePMSomewhereBlazorWASMApp.csproj", "{18F45009-8162-412C-81C6-5FB26771875A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FivePMSomewhereShared", "FivePMSomewhereShared\FivePMSomewhereShared.csproj", "{570AFEE3-8F64-4035-82AB-3CF12A479363}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FivePMSomewhereEngine", "FivePMSomewhereEngine\FivePMSomewhereEngine.csproj", "{90E06C32-3831-414B-9FF2-5EABBAA67B2A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,14 +23,6 @@ Global
 		{1BB9D327-9D27-4030-A7C2-B5D7A5D38AD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1BB9D327-9D27-4030-A7C2-B5D7A5D38AD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1BB9D327-9D27-4030-A7C2-B5D7A5D38AD4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{322C4730-AA59-48DE-A692-439C71358F97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{322C4730-AA59-48DE-A692-439C71358F97}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{322C4730-AA59-48DE-A692-439C71358F97}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{322C4730-AA59-48DE-A692-439C71358F97}.Release|Any CPU.Build.0 = Release|Any CPU
-		{271497C8-E10E-40AB-8E56-6A2502D10953}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{271497C8-E10E-40AB-8E56-6A2502D10953}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{271497C8-E10E-40AB-8E56-6A2502D10953}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{271497C8-E10E-40AB-8E56-6A2502D10953}.Release|Any CPU.Build.0 = Release|Any CPU
 		{73C36072-A8AD-4C62-9C82-3B40DEC7C970}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{73C36072-A8AD-4C62-9C82-3B40DEC7C970}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{73C36072-A8AD-4C62-9C82-3B40DEC7C970}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -39,6 +31,14 @@ Global
 		{18F45009-8162-412C-81C6-5FB26771875A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{18F45009-8162-412C-81C6-5FB26771875A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{18F45009-8162-412C-81C6-5FB26771875A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{570AFEE3-8F64-4035-82AB-3CF12A479363}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{570AFEE3-8F64-4035-82AB-3CF12A479363}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{570AFEE3-8F64-4035-82AB-3CF12A479363}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{570AFEE3-8F64-4035-82AB-3CF12A479363}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90E06C32-3831-414B-9FF2-5EABBAA67B2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90E06C32-3831-414B-9FF2-5EABBAA67B2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90E06C32-3831-414B-9FF2-5EABBAA67B2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90E06C32-3831-414B-9FF2-5EABBAA67B2A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

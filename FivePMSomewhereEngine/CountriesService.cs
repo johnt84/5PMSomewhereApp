@@ -1,4 +1,4 @@
-﻿using FivePMShared.Constants;
+﻿using FivePMSomewhereShared.Constants;
 using RESTCountries.NET.Models;
 using RESTCountries.NET.Services;
 
@@ -25,6 +25,11 @@ public class CountriesService : ICountriesService
     public string GetRandomCountryByTimeZone(string timeZoneName)
     {
         var countries = GetCountriesByTimeZone(timeZoneName);
+
+        if (!countries.Any())
+        {
+            return string.Empty;
+        }
 
         string? selectableCountry = GetSelectableCountry(countries, timeZoneName);
 

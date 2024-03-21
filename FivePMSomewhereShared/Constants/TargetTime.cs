@@ -1,4 +1,4 @@
-﻿namespace FivePMShared.Constants
+﻿namespace FivePMSomewhereShared.Constants
 {
     public static class TargetTime
     {

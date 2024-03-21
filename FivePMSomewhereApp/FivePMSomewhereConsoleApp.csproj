@@ -9,8 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FivePMShared\FivePMShared.csproj" />
-    <ProjectReference Include="..\FivePMSomwhereEngine\FivePMSomewhereEngine.csproj" />
+    <ProjectReference Include="..\FivePMSomewhereEngine\FivePMSomewhereEngine.csproj" />
+    <ProjectReference Include="..\FivePMSomewhereShared\FivePMSomewhereShared.csproj" />
   </ItemGroup>
 
 </Project>

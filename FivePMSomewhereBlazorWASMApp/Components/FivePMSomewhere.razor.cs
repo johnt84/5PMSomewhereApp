@@ -1,5 +1,5 @@
-﻿using FivePMShared.Models;
-using FivePMSomewhereEngine;
+﻿using FivePMSomewhereEngine;
+using FivePMSomewhereShared.Models;
 using Microsoft.AspNetCore.Components;
 
 namespace FivePMSomewhereBlazorWASMApp.Components
