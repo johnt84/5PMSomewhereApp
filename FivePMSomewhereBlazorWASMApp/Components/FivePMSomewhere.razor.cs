@@ -31,22 +31,74 @@ namespace FivePMSomewhereBlazorWASMApp.Components
 
             if (applicableTimeZones is not null)
             {
-                if (applicableTimeZones.CurrentTimeZones is not null && applicableTimeZones.CurrentTimeZones.Any())
-                {
-                    CurrentTimeZone = applicableTimeZones.CurrentTimeZones.ToList().First();
-                }
-                else
-                {
-                    if (applicableTimeZones.PreviousTimeZones is not null && applicableTimeZones.PreviousTimeZones.Any())
-                    {
-                        PreviousTimeZone = applicableTimeZones.PreviousTimeZones.ToList().First();
-                    }
+                CurrentTimeZone = GetCurrentTimeZone(applicableTimeZones.CurrentTimeZones);
 
-                    if (applicableTimeZones.NextTimeZones is not null && applicableTimeZones.NextTimeZones.Any())
-                    {
-                        NextTimeZone = applicableTimeZones.NextTimeZones.ToList().First();
-                    }
-                }
+                PreviousTimeZone = GetPreviousTimeZone(applicableTimeZones.PreviousTimeZones);
+
+                NextTimeZone = GetNextTimeZone(applicableTimeZones.NextTimeZones);
+            }
+        }
+
+        private TargetTimeModel? GetCurrentTimeZone(IEnumerable<TargetTimeModel> currentTimeZones)
+        {
+            if (currentTimeZones is null || !currentTimeZones.Any())
+            {
+                return null;
+            }
+
+            if (currentTimeZones.Count() == 1)
+            {
+                return currentTimeZones.Single();
+            }
+            else
+            {
+                var random = new Random();
+
+                int randomPosition = random.Next(currentTimeZones.Count());
+
+                return currentTimeZones.ToArray()[randomPosition];
+            }
+        }
+
+        private TimeAfterTargetModel? GetPreviousTimeZone(IEnumerable<TimeAfterTargetModel> previousTimeZones)
+        {
+            if (previousTimeZones is null || !previousTimeZones.Any())
+            {
+                return null;
+            }
+
+            if (previousTimeZones.Count() == 1)
+            {
+                return previousTimeZones.Single();
+            }
+            else
+            {
+                var random = new Random();
+
+                int randomPosition = random.Next(previousTimeZones.Count());
+
+                return previousTimeZones.ToArray()[randomPosition];
+            }
+        }
+
+        private TimeBeforeTargetModel? GetNextTimeZone(IEnumerable<TimeBeforeTargetModel> nextTimeZones)
+        {
+            if (nextTimeZones is null || !nextTimeZones.Any())
+            {
+                return null;
+            }
+
+            if (nextTimeZones.Count() == 1)
+            {
+                return nextTimeZones.Single();
+            }
+            else
+            {
+                var random = new Random();
+
+                int randomPosition = random.Next(nextTimeZones.Count());
+
+                return nextTimeZones.ToArray()[randomPosition];
             }
         }
     }

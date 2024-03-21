@@ -5,9 +5,9 @@ var countriesService = new CountriesService();
 
 var fivePMSomewhereService = new FivePMSomewhereService(countriesService);
 
-var targetDate = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, DateTime.UtcNow.Day, 17, 00, 0);
+//var targetDate = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, DateTime.UtcNow.Day, 17, 00, 0);
 
-var applicableTimeZones = fivePMSomewhereService.GetApplicableTimeZones(searchDate: targetDate, currentCountry: Countries.UnitedKingdom);
+var applicableTimeZones = fivePMSomewhereService.GetApplicableTimeZones(currentCountry: null);
 
 if (applicableTimeZones.CurrentTimeZones is not null)
 {
