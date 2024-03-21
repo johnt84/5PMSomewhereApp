@@ -6,11 +6,8 @@
     </MudTooltip>
 </MudStack>
 
-
-<CurrentDate />
-
-<CurrentTimeZoneComponent TimeZone="CurrentTimeZone" />
-
-<PreviousTimeZoneComponent TimeZone="PreviousTimeZone" />
-
-<NextTimeZoneComponent TimeZone="NextTimeZone" />
+<MudExpansionPanels DisableBorders="false" Elevation="0">
+    <MudExpansionPanel Class="mb-4 border-solid border mud-border-primary">
+        <Details CurrentTimeZone="CurrentTimeZone" PreviousTimeZone="PreviousTimeZone" NextTimeZone="NextTimeZone" />
+    </MudExpansionPanel>
+</MudExpansionPanels>
