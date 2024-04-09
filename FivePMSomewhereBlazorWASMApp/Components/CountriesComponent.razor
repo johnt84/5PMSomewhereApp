@@ -1,6 +1,13 @@
-﻿@if (Countries is not null && Countries.Count() > 1)
+﻿@if (Countries is not null && Countries.Any())
 {
-    <MudTextField Value="FivePMSomewhereService.GetCountries(Countries)" Label="Countries:" Variant="Variant.Text"></MudTextField>
+    int countryIndex = 0;
+
+    @foreach(var country in Countries)
+    {
+        <CountryChipComponent Country="@country" Colour="(Color)GetCountryCodeIndex(countryIndex)" />
+
+        countryIndex++;
+    }
 }
 
 @code
@@ -11,4 +18,7 @@
     [Inject]
     private IFivePMSomewhereService FivePMSomewhereService { get; set; } = null!;
 
+    private int NumberOfColours => Enum.GetNames(typeof(Color)).Length;
+
+    private int GetCountryCodeIndex(int countryIndex) => countryIndex % NumberOfColours;
 }

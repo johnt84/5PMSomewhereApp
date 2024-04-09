@@ -114,6 +114,4 @@ public class FivePMSomewhereService : IFivePMSomewhereService
             PreviousTimeZones = previousTimeZones
         };
     }
-
-    public string GetCountries(IEnumerable<string> countries) => string.Join(", ", countries);
 }

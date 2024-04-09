@@ -1,7 +1,7 @@
 ﻿@if (TimeZone is not null)
 {
     <MudText Typo="Typo.body1" Class="mt-5 mb-2">
-        It was 5 PM @TimeZone.NumberOfMinutesAfterTarget minutes ago in @TimeZone.RandomCountry
+        It was 5 PM @TimeZone.NumberOfMinutesAfterTarget minutes ago in <CountryChipComponent Country="@TimeZone.RandomCountry" />
     </MudText>
 
     <TimeZone Name="@TimeZone.TimeZoneName" />
