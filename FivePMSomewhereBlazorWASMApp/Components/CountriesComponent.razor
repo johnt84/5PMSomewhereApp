@@ -1,14 +1,18 @@
-﻿@if (Countries is not null && Countries.Any())
-{
-    int countryIndex = 0;
+﻿<MudCard>
+    <MudCardContent>
+        @if (Countries is not null && Countries.Any())
+        {
+            int countryIndex = 0;
 
-    @foreach(var country in Countries)
-    {
-        <CountryChipComponent Country="@country" Colour="(Color)GetCountryCodeIndex(countryIndex)" />
+            @foreach (var country in Countries)
+            {
+                <CountryChipComponent Country="@country" Colour="(Color)GetCountryCodeIndex(countryIndex)" />
 
-        countryIndex++;
-    }
-}
+                countryIndex++;
+            }
+        }
+    </MudCardContent>
+</MudCard>
 
 @code
 {
