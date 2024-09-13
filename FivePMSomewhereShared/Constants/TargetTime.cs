@@ -1,7 +1,6 @@
-﻿namespace FivePMSomewhereShared.Constants
+﻿namespace FivePMSomewhereShared.Constants;
+
+public static class TargetTime
 {
-    public static class TargetTime
-    {
-        public const int TargetHour = 17;
-    }
+    public const int TargetHour = 17;
 }

@@ -1,5 +1,5 @@
 ﻿<MudStack Row="true">
-    <FivePMIn CurrentTimeZone="CurrentTimeZone" PreviousTimeZone="PreviousTimeZone" />
+    <FivePMIn CurrentTimeZone="TimeZone?.CurrentTimeZone" PreviousTimeZone="TimeZone?.PreviousTimeZone" />
 
     <MudTooltip Text="Refresh">
         <MudIconButton Icon="@Icons.Material.Filled.Refresh" OnClick="btnRefreshClick" Class="mt-4" />
@@ -8,6 +8,6 @@
 
 <MudExpansionPanels Elevation="0">
     <MudExpansionPanel Text="Details" Class="mb-4 border-solid border mud-border-primary">
-        <Details CurrentTimeZone="CurrentTimeZone" PreviousTimeZone="PreviousTimeZone" NextTimeZone="NextTimeZone" />
+        <Details TimeZone="TimeZone" />
     </MudExpansionPanel>
 </MudExpansionPanels>

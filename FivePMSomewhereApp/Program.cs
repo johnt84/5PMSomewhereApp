@@ -1,61 +1,54 @@
 ﻿using FivePMSomewhereEngine;
-using FivePMSomewhereShared.Constants;
 
 var countriesService = new CountriesService();
 
 var fivePMSomewhereService = new FivePMSomewhereService(countriesService);
 
-//var targetDate = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, DateTime.UtcNow.Day, 17, 00, 0);
+var timeZoneService = new TimeZoneService(fivePMSomewhereService);
 
-var applicableTimeZones = fivePMSomewhereService.GetApplicableTimeZones(currentCountry: null);
+var selectedTimeZone = timeZoneService.GetSelectedTimeZones();
 
-if (applicableTimeZones.CurrentTimeZones is not null)
+if (selectedTimeZone?.CurrentTimeZone is not null)
 {
     Console.WriteLine("It is currently 5 PM at...");
 
-    foreach (var timeZone in applicableTimeZones.CurrentTimeZones)
-    {
-        Console.WriteLine($"\nTimeZone {timeZone.TimeZoneName}");
+    Console.WriteLine($"\nTimeZone {selectedTimeZone.CurrentTimeZone.TimeZoneName}");
 
-        Console.WriteLine($"Countries - {string.Join(", ", timeZone.Countries)}");
+    Console.WriteLine($"Countries - {string.Join(", ", selectedTimeZone.CurrentTimeZone.Countries)}");
 
-        Console.WriteLine($"First Country - {timeZone.RandomCountry}");
-    }
+    Console.WriteLine($"First Country - {selectedTimeZone.CurrentTimeZone.RandomCountry}");
 }
 else
 {
-    var firstPreviousTimeZone = applicableTimeZones.PreviousTimeZones.First();
-
-    int numberOfMinutesAfterTarget = firstPreviousTimeZone.NumberOfMinutesAfterTarget;
-    var timeAtTimeZoneAfterTarget = firstPreviousTimeZone.TimeAtOffset;
-
-    Console.WriteLine($"It was 5 PM in these TimeZones {numberOfMinutesAfterTarget} minutes ago");
-    Console.WriteLine($"\nTime is {timeAtTimeZoneAfterTarget}");
-
-    foreach (var timeZone in applicableTimeZones.PreviousTimeZones)
+    if (selectedTimeZone?.PreviousTimeZone is not null)
     {
-        Console.WriteLine($"\nTimeZone {timeZone.TimeZoneName}");
+        int numberOfMinutesAfterTarget = selectedTimeZone.PreviousTimeZone.NumberOfMinutesAfterTarget;
+        var timeAtTimeZoneAfterTarget = selectedTimeZone.PreviousTimeZone.TimeAtOffset;
 
-        Console.WriteLine($"Countries - {string.Join(", ", timeZone.Countries)}");
+        Console.WriteLine($"It was 5 PM in these TimeZones {numberOfMinutesAfterTarget} minutes ago");
+        Console.WriteLine($"\nTime is {timeAtTimeZoneAfterTarget}");
 
-        Console.WriteLine($"Random Country - {timeZone.RandomCountry}");
+        Console.WriteLine($"\nTimeZone {selectedTimeZone.PreviousTimeZone.TimeZoneName}");
+
+        Console.WriteLine($"Countries - {string.Join(", ", selectedTimeZone.PreviousTimeZone.Countries)}");
+
+        Console.WriteLine($"Random Country - {selectedTimeZone.PreviousTimeZone.RandomCountry}");
     }
 
-    var firstNextTimeZone = applicableTimeZones.NextTimeZones.First();
 
-    int numberOfMinutesBeforeTarget = firstNextTimeZone.NumberOfMinutesBeforeTarget;
-    var timeAtTimeZoneBeforeTarget = firstNextTimeZone.TimeAtOffset;
-
-    Console.WriteLine($"\n\nWill be 5 PM in these TimeZones in {numberOfMinutesBeforeTarget} minutes");
-    Console.WriteLine($"\nTime is {timeAtTimeZoneBeforeTarget}");
-
-    foreach (var timeZone in applicableTimeZones.NextTimeZones)
+    if (selectedTimeZone?.NextTimeZone is not null)
     {
-        Console.WriteLine($"\nTimeZone {timeZone.TimeZoneName}");
+        int numberOfMinutesBeforeTarget = selectedTimeZone.NextTimeZone.NumberOfMinutesBeforeTarget;
+        var timeAtTimeZoneBeforeTarget = selectedTimeZone.NextTimeZone.TimeAtOffset;
 
-        Console.WriteLine($"Countries - {string.Join(", ", timeZone.Countries)}");
+        Console.WriteLine($"\nWill be 5 PM in these TimeZones in {numberOfMinutesBeforeTarget} minutes");
+        Console.WriteLine($"\nTime is {timeAtTimeZoneBeforeTarget}");
 
-        Console.WriteLine($"Random Country - {timeZone.RandomCountry}");
+        Console.WriteLine($"\nTimeZone {selectedTimeZone.NextTimeZone.TimeZoneName}");
+
+        Console.WriteLine($"Countries - {string.Join(", ", selectedTimeZone.NextTimeZone.Countries)}");
+
+        Console.WriteLine($"Random Country - {selectedTimeZone.NextTimeZone.RandomCountry}");
     }
 }
 

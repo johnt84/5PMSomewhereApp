@@ -2,16 +2,15 @@
 using FivePMSomewhereShared.Models;
 using Microsoft.AspNetCore.Components;
 
-namespace FivePMSomewhereBlazorWASMApp.Components
+namespace FivePMSomewhereBlazorWASMApp.Components;
+
+public partial class FivePMIn
 {
-    public partial class FivePMIn
-    {
-        [Parameter]
-        public TargetTimeModel? CurrentTimeZone { get; set; }
+    [Parameter]
+    public TargetTimeModel? CurrentTimeZone { get; set; }
 
-        [Parameter]
-        public TimeAfterTargetModel? PreviousTimeZone { get; set; }
+    [Parameter]
+    public TimeAfterTargetModel? PreviousTimeZone { get; set; }
 
-        private string? Country => CountryLogic.GetCountry(CurrentTimeZone, PreviousTimeZone);
-    }
+    private string? Country => CountryLogic.GetCountry(CurrentTimeZone, PreviousTimeZone);
 }
