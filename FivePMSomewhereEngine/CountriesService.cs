@@ -33,9 +33,12 @@ public class CountriesService : ICountriesService
 
         string? selectableCountry = GetSelectableCountry(countries, timeZoneName);
 
-        if (!string.IsNullOrEmpty(selectableCountry) && selectableCountry != currentCountry)
+        bool allowSelectableCountry = selectableCountry is not null && 
+                        (Countries.Values.Contains(selectableCountry) || selectableCountry != currentCountry);
+
+        if (allowSelectableCountry)
         {
-            return selectableCountry;
+            return selectableCountry!;
         }
 
         string randomCountry = string.Empty;
@@ -68,6 +71,11 @@ public class CountriesService : ICountriesService
         {
             if (Countries.Values.Contains(country) && TimeZoneNames.Values.Contains(timeZoneName))
             {
+                if (timeZoneName == TimeZoneNames.USTimeZoneName && country != Countries.USA)
+                {
+                    continue;
+                }
+
                 selectableCountry = country;
 
                 break;

@@ -1,4 +1,4 @@
-﻿<MudStack Row="true">
+﻿<MudStack Row="true" Class="pl-5 pr-5">
     <FivePMIn CurrentTimeZone="TimeZone?.CurrentTimeZone" PreviousTimeZone="TimeZone?.PreviousTimeZone" />
 
     <MudTooltip Text="Refresh">
@@ -6,7 +6,7 @@
     </MudTooltip>
 </MudStack>
 
-<MudExpansionPanels Elevation="0">
+<MudExpansionPanels Style="width:1024px;" Elevation="0"  Class="pl-5 pr-5">
     <MudExpansionPanel Text="Details" Class="mb-4 border-solid border mud-border-primary">
         <Details TimeZone="TimeZone" />
     </MudExpansionPanel>

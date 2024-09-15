@@ -6,51 +6,62 @@ var fivePMSomewhereService = new FivePMSomewhereService(countriesService);
 
 var timeZoneService = new TimeZoneService(fivePMSomewhereService);
 
-var selectedTimeZone = timeZoneService.GetSelectedTimeZones();
+bool again = true;
 
-if (selectedTimeZone?.CurrentTimeZone is not null)
+while (again)
 {
-    Console.WriteLine("It is currently 5 PM at...");
+    var selectedTimeZone = timeZoneService.GetSelectedTimeZones();
 
-    Console.WriteLine($"\nTimeZone {selectedTimeZone.CurrentTimeZone.TimeZoneName}");
-
-    Console.WriteLine($"Countries - {string.Join(", ", selectedTimeZone.CurrentTimeZone.Countries)}");
-
-    Console.WriteLine($"First Country - {selectedTimeZone.CurrentTimeZone.RandomCountry}");
-}
-else
-{
-    if (selectedTimeZone?.PreviousTimeZone is not null)
+    if (selectedTimeZone?.CurrentTimeZone is not null)
     {
-        int numberOfMinutesAfterTarget = selectedTimeZone.PreviousTimeZone.NumberOfMinutesAfterTarget;
-        var timeAtTimeZoneAfterTarget = selectedTimeZone.PreviousTimeZone.TimeAtOffset;
+        Console.WriteLine("\nIt is currently 5 PM at...");
 
-        Console.WriteLine($"It was 5 PM in these TimeZones {numberOfMinutesAfterTarget} minutes ago");
-        Console.WriteLine($"\nTime is {timeAtTimeZoneAfterTarget}");
+        Console.WriteLine($"\nTimeZone {selectedTimeZone.CurrentTimeZone.TimeZoneName}");
 
-        Console.WriteLine($"\nTimeZone {selectedTimeZone.PreviousTimeZone.TimeZoneName}");
+        Console.WriteLine($"\nCountries - {string.Join(", ", selectedTimeZone.CurrentTimeZone.Countries)}");
 
-        Console.WriteLine($"Countries - {string.Join(", ", selectedTimeZone.PreviousTimeZone.Countries)}");
+        Console.WriteLine($"\nFirst Country - {selectedTimeZone.CurrentTimeZone.RandomCountry}");
+    }
+    else
+    {
+        if (selectedTimeZone?.PreviousTimeZone is not null)
+        {
+            int numberOfMinutesAfterTarget = selectedTimeZone.PreviousTimeZone.NumberOfMinutesAfterTarget;
+            var timeAtTimeZoneAfterTarget = selectedTimeZone.PreviousTimeZone.TimeAtOffset;
 
-        Console.WriteLine($"Random Country - {selectedTimeZone.PreviousTimeZone.RandomCountry}");
+            Console.WriteLine($"It was 5 PM in these TimeZones {numberOfMinutesAfterTarget} minutes ago");
+            Console.WriteLine($"\nTime is {timeAtTimeZoneAfterTarget}");
+
+            Console.WriteLine($"\nTimeZone {selectedTimeZone.PreviousTimeZone.TimeZoneName}");
+
+            Console.WriteLine($"\nCountries - {string.Join(", ", selectedTimeZone.PreviousTimeZone.Countries)}");
+
+            Console.WriteLine($"\nRandom Country - {selectedTimeZone.PreviousTimeZone.RandomCountry}");
+        }
+
+
+        if (selectedTimeZone?.NextTimeZone is not null)
+        {
+            int numberOfMinutesBeforeTarget = selectedTimeZone.NextTimeZone.NumberOfMinutesBeforeTarget;
+            var timeAtTimeZoneBeforeTarget = selectedTimeZone.NextTimeZone.TimeAtOffset;
+
+            Console.WriteLine($"\nWill be 5 PM in these TimeZones in {numberOfMinutesBeforeTarget} minutes");
+            Console.WriteLine($"\nTime is {timeAtTimeZoneBeforeTarget}");
+
+            Console.WriteLine($"\nTimeZone {selectedTimeZone.NextTimeZone.TimeZoneName}");
+
+            Console.WriteLine($"\nCountries - {string.Join(", ", selectedTimeZone.NextTimeZone.Countries)}");
+
+            Console.WriteLine($"\nRandom Country - {selectedTimeZone.NextTimeZone.RandomCountry}");
+        }
     }
 
+    Console.WriteLine("\nWould you like another country (Y/N)?");
+    string? yOrN = Console.ReadLine();
 
-    if (selectedTimeZone?.NextTimeZone is not null)
-    {
-        int numberOfMinutesBeforeTarget = selectedTimeZone.NextTimeZone.NumberOfMinutesBeforeTarget;
-        var timeAtTimeZoneBeforeTarget = selectedTimeZone.NextTimeZone.TimeAtOffset;
-
-        Console.WriteLine($"\nWill be 5 PM in these TimeZones in {numberOfMinutesBeforeTarget} minutes");
-        Console.WriteLine($"\nTime is {timeAtTimeZoneBeforeTarget}");
-
-        Console.WriteLine($"\nTimeZone {selectedTimeZone.NextTimeZone.TimeZoneName}");
-
-        Console.WriteLine($"Countries - {string.Join(", ", selectedTimeZone.NextTimeZone.Countries)}");
-
-        Console.WriteLine($"Random Country - {selectedTimeZone.NextTimeZone.RandomCountry}");
-    }
+    again = yOrN is not null && yOrN.Equals("Y", StringComparison.InvariantCultureIgnoreCase);
 }
+
 
 Console.WriteLine("\nPress any key to continue..");
 Console.ReadLine();
