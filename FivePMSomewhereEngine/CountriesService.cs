@@ -55,7 +55,9 @@ public class CountriesService : ICountriesService
     {
         var timeZoneNameSplit = timeZoneName.Split(")").ToList();
 
-        return timeZoneNameSplit[0].Replace("(", string.Empty);
+        var timeZone = timeZoneNameSplit[0].Replace("(", string.Empty);
+
+        return timeZone.Replace("+00:00", string.Empty);
     }
     
     private string? GetSelectableCountry(IEnumerable<string> countries, string timeZoneName)
