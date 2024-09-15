@@ -13,7 +13,7 @@ jobs:
   build:
     runs-on: windows-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Setup .NET SDK
       uses: actions/setup-dotnet@v3
       with:
@@ -44,5 +44,5 @@ jobs:
       uses: azure/webapps-deploy@v2
       with:
         app-name: ${{ env.AZURE_WEBAPP_NAME }}
-        publish-profile: ${{ secrets.ItsFivePMSomewhereApp_2F1F }}
+        publish-profile: ${{ secrets.ItsFivePMSomewhereApp_3A8C }}
         package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
