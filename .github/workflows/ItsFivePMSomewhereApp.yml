@@ -2,13 +2,13 @@ name: Build and deploy .NET Core application to Web App ItsFivePMSomewhereApp
 on:
   push:
     branches:
-    - master
+    - CreateNewBlazorProjectToFix5PMIssue
 env:
   AZURE_WEBAPP_NAME: ItsFivePMSomewhereApp
-  AZURE_WEBAPP_PACKAGE_PATH: FivePMSomewhereBlazorWASMApp\published
+  AZURE_WEBAPP_PACKAGE_PATH: FivePMSomewhereBlazorApp\published
   CONFIGURATION: Release
   DOTNET_CORE_VERSION: 8.0.x
-  WORKING_DIRECTORY: FivePMSomewhereBlazorWASMApp
+  WORKING_DIRECTORY: FivePMSomewhereBlazorApp
 jobs:
   build:
     runs-on: windows-latest
@@ -44,5 +44,5 @@ jobs:
       uses: azure/webapps-deploy@v2
       with:
         app-name: ${{ env.AZURE_WEBAPP_NAME }}
-        publish-profile: ${{ secrets.ItsFivePMSomewhereApp_3A8C }}
+        publish-profile: ${{ secrets.ItsFivePMSomewhereApp_F2AC }}
         package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
