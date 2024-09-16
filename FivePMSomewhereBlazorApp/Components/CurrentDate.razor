@@ -1,7 +1,7 @@
 ﻿@if (CurrentDateTime is not null)
 {
     <MudText Typo="Typo.body1" Class="pl-5">
-        It's currently @CurrentDateTime.Value.ToString("dd/MM/yyyy HH:mm:ss")
+        It's currently <LocalTime DateTime="@CurrentDateTime.Value" /> 
     </MudText>
 }
 

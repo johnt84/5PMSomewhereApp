@@ -1,6 +1,6 @@
-﻿using FivePMSomewhereBlazorApp.Logic;
+﻿using FivePMSomewhereBlazorApp.Components.TimeZone;
+using FivePMSomewhereBlazorApp.Logic;
 using FivePMSomewhereEngine;
-using FivePMSomewhereShared.Constants;
 using FivePMSomewhereShared.Models;
 using Microsoft.AspNetCore.Components;
 
@@ -10,6 +10,9 @@ public partial class FivePMSomewhere
 {
     [Inject]
     private ITimeZoneService TimeZoneService { get; set; } = null!;
+
+    [Inject]
+    public TimeProvider TimeProvider { get; set; } = default!;
 
     private TimeZoneModel? TimeZone { get; set; }
 
@@ -22,5 +25,5 @@ public partial class FivePMSomewhere
         LoadTimeZones(currentCountry: Country);
 
     private void LoadTimeZones(string? currentCountry = null) =>
-        TimeZone = TimeZoneService.GetSelectedTimeZones(currentCountry: currentCountry);
+        TimeZone = TimeZoneService.GetSelectedTimeZones(searchDate: TimeProvider.ToLocalDateTime(DateTime.UtcNow), currentCountry: currentCountry);   
 }

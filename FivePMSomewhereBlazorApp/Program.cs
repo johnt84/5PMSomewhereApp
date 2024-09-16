@@ -1,4 +1,5 @@
 using FivePMSomewhereBlazorApp.Components;
+using FivePMSomewhereBlazorApp.Logic;
 using FivePMSomewhereEngine;
 using MudBlazor.Services;
 
@@ -11,6 +12,7 @@ builder.Services.AddRazorComponents()
 builder.Services.AddScoped<ICountriesService, CountriesService>();
 builder.Services.AddScoped<IFivePMSomewhereService, FivePMSomewhereService>();
 builder.Services.AddScoped<ITimeZoneService, TimeZoneService>();
+builder.Services.AddScoped<TimeProvider, BrowserTimeProvider>();
 
 builder.Services.AddMudServices();
 

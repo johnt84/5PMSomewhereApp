@@ -29,7 +29,7 @@ public class TimeZoneService : ITimeZoneService
 
         return new TimeZoneModel
         {
-            CurrentDate = DateTime.Now,
+            CurrentDate = DateTime.UtcNow,
             CurrentTimeZone = currentTimeZone,
             PreviousTimeZone = previousTimeZone,
             NextTimeZone = nextTimeZone
