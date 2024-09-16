@@ -31,7 +31,7 @@ public class FivePMSomewhereService : IFivePMSomewhereService
         }
         else
         {
-            date = DateTime.Now;
+            date = DateTime.UtcNow;
         }
 
         var targetDate = new DateTime(date.Year, date.Month, date.Day, TargetTime.TargetHour, 0, 0);
