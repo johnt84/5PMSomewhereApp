@@ -18,7 +18,7 @@ public partial class FivePMSomewhere
 
     private string? Country => CountryLogic.GetCountry(TimeZone?.CurrentTimeZone, TimeZone?.PreviousTimeZone);
 
-    protected override void OnInitialized() =>
+    protected override void OnParametersSet() =>
         LoadTimeZones();
 
     private void btnRefreshClick() =>
