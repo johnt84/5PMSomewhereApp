@@ -1,5 +1,5 @@
-﻿@page "/"
+﻿@page "/{selectedtimezonename?}/{selectedcountryname?}"
 
-<FivePMSomewhere />
-
+<FivePMSomewhere SelectedTimeZoneName="@SelectedTimeZoneName" SelectedCountryName="@SelectedCountryName" />
+ 
 <InitializeTimeZone />

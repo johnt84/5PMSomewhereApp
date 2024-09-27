@@ -22,13 +22,23 @@ public class CountriesService : ICountriesService
                 .Select(country => country.Name.Common);
     }
 
-    public string GetRandomCountryByTimeZone(string timeZoneName, string? currentCountry = null)
+    public string GetRandomCountryByTimeZone(string timeZoneName, string? currentCountry = null, string? selectedCountryName = null)
     {
         var countries = GetCountriesByTimeZone(timeZoneName);
 
         if (!countries.Any())
         {
             return string.Empty;
+        }
+
+        if (selectedCountryName is not null)
+        {
+            bool selectedCountryIsValid = countries.Any(country => country == selectedCountryName);
+
+            if (selectedCountryIsValid)
+            {
+                return selectedCountryName;
+            }
         }
 
         string? selectableCountry = GetSelectableCountry(countries, timeZoneName);
