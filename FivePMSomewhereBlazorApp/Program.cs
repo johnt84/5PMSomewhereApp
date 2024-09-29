@@ -1,3 +1,4 @@
+using Append.Blazor.WebShare;
 using FivePMSomewhereBlazorApp.Components;
 using FivePMSomewhereBlazorApp.Logic;
 using FivePMSomewhereEngine;
@@ -15,6 +16,7 @@ builder.Services.AddScoped<ITimeZoneService, TimeZoneService>();
 builder.Services.AddScoped<TimeProvider, BrowserTimeProvider>();
 
 builder.Services.AddMudServices();
+builder.Services.AddWebShare();
 
 var app = builder.Build();
 

@@ -13,22 +13,46 @@ public class CountriesService : ICountriesService
         _countries = RestCountriesService.GetAllCountries();
     }
 
-    public IEnumerable<string> GetCountriesByTimeZone(string timeZoneName)
+    public IEnumerable<string> GetCountriesByTimeZone(string timeZoneName, int? selectedCountryId = null)
     {
         string timeZoneNameForCountrySearch = GetTimeZoneForCountrySearch(timeZoneName);
 
-        return _countries
-                .Where(country => country.Timezones.ToList().Contains(timeZoneNameForCountrySearch))
-                .Select(country => country.Name.Common);
+        string? selectedCountryName = null;
+
+        if (selectedCountryId is not null && selectedCountryId < _countries.Count())
+        {
+            selectedCountryName = _countries
+                                    .OrderBy(country => country.Name.Common)
+                                    .ToArray()[selectedCountryId.Value].Name.Common;
+        }
+
+        var timeZoneCountries = _countries
+                        .Where(country => country.Timezones.ToList().Contains(timeZoneNameForCountrySearch))
+                        .Select(country => country.Name.Common);
+
+        if (selectedCountryName is null || !timeZoneCountries.Contains(selectedCountryName))
+        {
+            return timeZoneCountries;
+        }
+
+        return new[] { selectedCountryName };
     }
 
-    public string GetRandomCountryByTimeZone(string timeZoneName, string? currentCountry = null)
+    public string GetRandomCountryByTimeZone(string timeZoneName, string? currentCountry = null
+                    , string? selectedTimeZoneName = null, int? selectedCountryId = null)
     {
-        var countries = GetCountriesByTimeZone(timeZoneName);
+        var countries = GetCountriesByTimeZone(timeZoneName, selectedCountryId: selectedCountryId);
 
         if (!countries.Any())
         {
             return string.Empty;
+        }
+
+        if (selectedTimeZoneName is not null 
+            && selectedCountryId is not null 
+            && selectedTimeZoneName == timeZoneName)
+        {
+            return countries.First();
         }
 
         string? selectableCountry = GetSelectableCountry(countries, timeZoneName);
@@ -43,8 +67,9 @@ public class CountriesService : ICountriesService
 
         string randomCountry = string.Empty;
 
-       while (randomCountry == string.Empty || (randomCountry == currentCountry))
-        {
+       while (randomCountry == string.Empty || 
+            (randomCountry == currentCountry && countries.Count() > 1))
+       {
             var rand = new Random();
             int countryIndex = rand.Next(countries.Count());
 
@@ -52,6 +77,19 @@ public class CountriesService : ICountriesService
         }
 
         return randomCountry;
+    }
+
+    public int? GetCountryId(string? countryName)
+    {
+        if (countryName is null)
+        {
+            return null;
+        }
+
+        return _countries
+                .OrderBy(country => country.Name.Common)
+                .ToList()
+                .FindIndex(country => country.Name.Common == countryName);
     }
 
     private string GetTimeZoneForCountrySearch(string timeZoneName)

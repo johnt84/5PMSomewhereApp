@@ -12,18 +12,37 @@ public class TimeZoneService : ITimeZoneService
         _fivePMSomewhereService = FivePMSomewhereService;
     }
 
-    public TimeZoneModel? GetSelectedTimeZones(DateTime? searchDate = null, string? currentCountry = null)
+    public TimeZoneModel? GetSelectedTimeZones(DateTime? searchDate = null, string? currentCountry = null, int? selectedTimeZoneId = null
+        , int? selectedCountryId = null)
     {
-        var applicableTimeZones = _fivePMSomewhereService.GetApplicableTimeZones(searchDate: searchDate, currentCountry: currentCountry);
+        var timeZones = TimeZoneInfo.GetSystemTimeZones();
+
+        if (timeZones is null)
+        {
+            return null;
+        }
+
+        string? selectedTimeZoneName = null;
+
+        if (selectedTimeZoneId is not null && selectedTimeZoneId < timeZones.Count())
+        {
+            selectedTimeZoneName =  timeZones
+                                        .OrderBy(timeZone => timeZone.DisplayName)
+                                        .ToArray()[selectedTimeZoneId.Value].DisplayName;
+        }
+
+        var applicableTimeZones = _fivePMSomewhereService.GetApplicableTimeZones(searchDate: searchDate, currentCountry: currentCountry
+                                            , selectedTimeZoneName: selectedTimeZoneName
+                                            , selectedCountryId: selectedCountryId);
 
         if (applicableTimeZones is null)
         {
             return null;
         }
 
-        var currentTimeZone = GetCurrentTimeZone(applicableTimeZones.CurrentTimeZones);
+        var currentTimeZone = GetCurrentTimeZone(applicableTimeZones.CurrentTimeZones, selectedTimeZoneName: selectedTimeZoneName);
 
-        var previousTimeZone = GetPreviousTimeZone(applicableTimeZones.PreviousTimeZones);
+        var previousTimeZone = GetPreviousTimeZone(applicableTimeZones.PreviousTimeZones, selectedTimeZoneName: selectedTimeZoneName);
 
         var nextTimeZone = GetNextTimeZone(applicableTimeZones.NextTimeZones);
 
@@ -36,24 +55,44 @@ public class TimeZoneService : ITimeZoneService
         };
     }
 
-    private TargetTimeModel? GetCurrentTimeZone(IEnumerable<TargetTimeModel> currentTimeZones)
+    public int? GetTimeZoneId(string? timeZoneName)
+    {
+        if (timeZoneName is null)
+        {
+            return null;
+        }
+        
+        var timeZones = TimeZoneInfo.GetSystemTimeZones();
+
+        if (timeZones is null)
+        {
+            return null;
+        }
+
+        return timeZones
+                .OrderBy(timeZone => timeZone.DisplayName)
+                .ToList()
+                .FindIndex(timeZone => timeZone.DisplayName == timeZoneName);
+    }
+
+    private TargetTimeModel? GetCurrentTimeZone(IEnumerable<TargetTimeModel> currentTimeZones, string? selectedTimeZoneName = null)
     {
         if (currentTimeZones is null || !currentTimeZones.Any())
         {
             return null;
         }
 
-        return GetSelectedCurrentTimeZone(currentTimeZones);
+        return GetSelectedCurrentTimeZone(currentTimeZones, selectedTimeZoneName: selectedTimeZoneName);
     }
 
-    private TimeAfterTargetModel? GetPreviousTimeZone(IEnumerable<TimeAfterTargetModel> previousTimeZones)
+    private TimeAfterTargetModel? GetPreviousTimeZone(IEnumerable<TimeAfterTargetModel> previousTimeZones, string? selectedTimeZoneName = null)
     {
         if (previousTimeZones is null || !previousTimeZones.Any())
         {
             return null;
         }
 
-        return GetSelectedPreviousTimeZone(previousTimeZones);
+        return GetSelectedPreviousTimeZone(previousTimeZones, selectedTimeZoneName: selectedTimeZoneName);
     }
 
     private TimeBeforeTargetModel? GetNextTimeZone(IEnumerable<TimeBeforeTargetModel> nextTimeZones)
@@ -66,7 +105,7 @@ public class TimeZoneService : ITimeZoneService
         return GetSelectedNextTimeZone(nextTimeZones);
     }
 
-    private TargetTimeModel GetSelectedCurrentTimeZone(IEnumerable<TargetTimeModel> currentTimeZones)
+    private TargetTimeModel GetSelectedCurrentTimeZone(IEnumerable<TargetTimeModel> currentTimeZones, string? selectedTimeZoneName = null)
     {
         if (currentTimeZones.Count() == 1)
         {
@@ -75,11 +114,19 @@ public class TimeZoneService : ITimeZoneService
         else
         {
             var selectedTimeZone = currentTimeZones
-                                    .FirstOrDefault(nextTimeZone => TimeZoneNames.Values.Contains(nextTimeZone.TimeZoneName));
+                                           .FirstOrDefault(currentTimeZone => currentTimeZone.TimeZoneName == selectedTimeZoneName);
 
             if (selectedTimeZone is not null)
             {
                 return selectedTimeZone;
+            }
+
+            var selectedCurrentTimeZone = currentTimeZones
+                                            .FirstOrDefault(currentTimeZone => TimeZoneNames.Values.Contains(currentTimeZone.TimeZoneName));
+
+            if (selectedCurrentTimeZone is not null)
+            {
+                return selectedCurrentTimeZone;
             }
 
             var random = new Random();
@@ -90,7 +137,7 @@ public class TimeZoneService : ITimeZoneService
         }
     }
 
-    private TimeAfterTargetModel? GetSelectedPreviousTimeZone(IEnumerable<TimeAfterTargetModel> previousTimeZones)
+    private TimeAfterTargetModel? GetSelectedPreviousTimeZone(IEnumerable<TimeAfterTargetModel> previousTimeZones, string? selectedTimeZoneName = null)
     {
         if (previousTimeZones.Count() == 1)
         {
@@ -99,11 +146,19 @@ public class TimeZoneService : ITimeZoneService
         else
         {
             var selectedTimeZone = previousTimeZones
-                                    .FirstOrDefault(nextTimeZone => TimeZoneNames.Values.Contains(nextTimeZone.TimeZoneName));
+                                    .FirstOrDefault(previousTimeZone => previousTimeZone.TimeZoneName == selectedTimeZoneName);
 
             if (selectedTimeZone is not null)
             {
                 return selectedTimeZone;
+            }
+
+            var selectedPreviousTimeZone = previousTimeZones
+                                            .FirstOrDefault(previousTimeZone => TimeZoneNames.Values.Contains(previousTimeZone.TimeZoneName));
+
+            if (selectedPreviousTimeZone is not null)
+            {
+                return selectedPreviousTimeZone;
             }
 
             var random = new Random();
