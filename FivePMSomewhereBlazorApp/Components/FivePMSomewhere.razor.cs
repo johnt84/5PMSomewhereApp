@@ -9,10 +9,10 @@ namespace FivePMSomewhereBlazorApp.Components;
 public partial class FivePMSomewhere
 {
     [Parameter]
-    public string? SelectedTimeZoneName { get; set; }
+    public int? SelectedTimeZoneId { get; set; }
 
     [Parameter]
-    public string? SelectedCountryName { get; set; }
+    public int? SelectedCountryId { get; set; }
 
     [Inject]
     private ITimeZoneService TimeZoneService { get; set; } = null!;
@@ -28,10 +28,18 @@ public partial class FivePMSomewhere
         LoadTimeZones();
 
     private void btnRefreshClick() =>
-        LoadTimeZones(currentCountry: Country);
+        LoadTimeZones(isRefresh: true, currentCountry: Country);
 
-    private void LoadTimeZones(string? currentCountry = null) =>
-         TimeZone = TimeZoneService.GetSelectedTimeZones(searchDate: TimeProvider.ToLocalDateTime(DateTime.UtcNow), currentCountry: currentCountry
-        , selectedTimeZoneName: SelectedTimeZoneName
-        , selectedCountryName: SelectedCountryName);
+    private void LoadTimeZones(bool isRefresh = false, string? currentCountry = null)
+    {
+        if (isRefresh)
+        {
+            SelectedTimeZoneId = null;
+            SelectedCountryId = null;
+        }
+
+        TimeZone = TimeZoneService.GetSelectedTimeZones(searchDate: TimeProvider.ToLocalDateTime(DateTime.UtcNow), currentCountry: currentCountry
+                    , selectedTimeZoneId: SelectedTimeZoneId
+                    , selectedCountryId: SelectedCountryId);
+    }
 }

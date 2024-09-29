@@ -12,11 +12,11 @@ public class FivePMSomewhereService : IFivePMSomewhereService
         _countriesService = countriesService;
     }
            
-    public FivePmModel GetApplicableTimeZones
+    public FivePmModel? GetApplicableTimeZones
     (DateTime? searchDate = null,
         string? currentCountry = null,
         string? selectedTimeZoneName = null,
-        string? selectedCountryName = null)
+        int? selectedCountryId = null)
     {
         var targetTime = new TimeSpan(TargetTime.TargetHour, 0, 0);
             
@@ -59,12 +59,13 @@ public class FivePMSomewhereService : IFivePMSomewhereService
                                         TimeAtOffset = date.AddHours(timeZone.BaseUtcOffset.Hours),
                                         Countries = _countriesService.GetCountriesByTimeZone(timeZone.DisplayName),
                                         RandomCountry = _countriesService.GetRandomCountryByTimeZone(timeZone.DisplayName, currentCountry: currentCountry
-                                                            , selectedCountryName: selectedCountryName)
+                                                            , selectedTimeZoneName: selectedTimeZoneName
+                                                            , selectedCountryId: selectedCountryId)
                                     })
             };
         }
 
-        var currentTimeZones = targetHourTimeZones
+        var allCurrentTimeZones = targetHourTimeZones
                                    .Where(timeZone => date.AddHours(timeZone.BaseUtcOffset.Hours) == targetDate)
                                    .Select(timeZone => new TargetTimeModel
                                    {
@@ -73,8 +74,14 @@ public class FivePMSomewhereService : IFivePMSomewhereService
                                        TimeAtOffset = date.AddHours(timeZone.BaseUtcOffset.Hours),
                                        Countries = _countriesService.GetCountriesByTimeZone(timeZone.DisplayName),
                                        RandomCountry = _countriesService.GetRandomCountryByTimeZone(timeZone.DisplayName, currentCountry: currentCountry
-                                                            , selectedCountryName: selectedCountryName)
+                                                            , selectedTimeZoneName: selectedTimeZoneName
+                                                            , selectedCountryId: selectedCountryId)
                                    });
+
+        var currentTimeZoneWithSelection = allCurrentTimeZones
+                                                .Where(timeZone => selectedTimeZoneName is null || timeZone.TimeZoneName == selectedTimeZoneName);
+
+        var currentTimeZones = currentTimeZoneWithSelection.Any() ? currentTimeZoneWithSelection : allCurrentTimeZones;
 
         if (currentTimeZones.Any())
         {
@@ -91,7 +98,7 @@ public class FivePMSomewhereService : IFivePMSomewhereService
                                         .Select(TimeZone => TimeZone.Key)
                                         .First();
 
-        var previousTimeZones = targetHourTimeZones
+        var allPreviousTimeZones = targetHourTimeZones
                                     .Select(timeZone => new TimeAfterTargetModel
                                     {
                                         TimeZoneName = timeZone.DisplayName,
@@ -100,8 +107,14 @@ public class FivePMSomewhereService : IFivePMSomewhereService
                                         NumberOfMinutesAfterTarget = (date.AddHours(timeZone.BaseUtcOffset.Hours) - targetDate).Minutes,
                                         Countries = _countriesService.GetCountriesByTimeZone(timeZone.DisplayName),
                                         RandomCountry = _countriesService.GetRandomCountryByTimeZone(timeZone.DisplayName, currentCountry: currentCountry
-                                                                            , selectedCountryName: selectedCountryName)
+                                                            , selectedTimeZoneName: selectedTimeZoneName
+                                                            , selectedCountryId: selectedCountryId)
                                     });
+
+        var previousTimeZoneWithSelection = allPreviousTimeZones
+                                                .Where(timeZone => selectedTimeZoneName is null || timeZone.TimeZoneName == selectedTimeZoneName);
+
+        var previousTimeZones = previousTimeZoneWithSelection.Any() ? previousTimeZoneWithSelection : allPreviousTimeZones;
 
         var nextTimeZones = timeZones
                             .Where(timeZone => timeZone.BaseUtcOffset == firstUtcOffsetAfterTargetTime)

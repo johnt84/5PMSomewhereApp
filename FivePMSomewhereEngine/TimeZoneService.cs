@@ -12,11 +12,28 @@ public class TimeZoneService : ITimeZoneService
         _fivePMSomewhereService = FivePMSomewhereService;
     }
 
-    public TimeZoneModel? GetSelectedTimeZones(DateTime? searchDate = null, string? currentCountry = null, string? selectedTimeZoneName = null
-        , string? selectedCountryName = null)
+    public TimeZoneModel? GetSelectedTimeZones(DateTime? searchDate = null, string? currentCountry = null, int? selectedTimeZoneId = null
+        , int? selectedCountryId = null)
     {
+        var timeZones = TimeZoneInfo.GetSystemTimeZones();
+
+        if (timeZones is null)
+        {
+            return null;
+        }
+
+        string? selectedTimeZoneName = null;
+
+        if (selectedTimeZoneId is not null && selectedTimeZoneId < timeZones.Count())
+        {
+            selectedTimeZoneName =  timeZones
+                                        .OrderBy(timeZone => timeZone.DisplayName)
+                                        .ToArray()[selectedTimeZoneId.Value].DisplayName;
+        }
+
         var applicableTimeZones = _fivePMSomewhereService.GetApplicableTimeZones(searchDate: searchDate, currentCountry: currentCountry
-                                            , selectedTimeZoneName: selectedTimeZoneName, selectedCountryName: selectedCountryName);
+                                            , selectedTimeZoneName: selectedTimeZoneName
+                                            , selectedCountryId: selectedCountryId);
 
         if (applicableTimeZones is null)
         {
@@ -36,6 +53,26 @@ public class TimeZoneService : ITimeZoneService
             PreviousTimeZone = previousTimeZone,
             NextTimeZone = nextTimeZone
         };
+    }
+
+    public int? GetTimeZoneId(string? timeZoneName)
+    {
+        if (timeZoneName is null)
+        {
+            return null;
+        }
+        
+        var timeZones = TimeZoneInfo.GetSystemTimeZones();
+
+        if (timeZones is null)
+        {
+            return null;
+        }
+
+        return timeZones
+                .OrderBy(timeZone => timeZone.DisplayName)
+                .ToList()
+                .FindIndex(timeZone => timeZone.DisplayName == timeZoneName);
     }
 
     private TargetTimeModel? GetCurrentTimeZone(IEnumerable<TargetTimeModel> currentTimeZones, string? selectedTimeZoneName = null)

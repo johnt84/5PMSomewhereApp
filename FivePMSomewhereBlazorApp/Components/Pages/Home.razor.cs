@@ -5,8 +5,8 @@ namespace FivePMSomewhereBlazorApp.Components.Pages;
 public partial class Home
 {
     [Parameter]
-    public string? SelectedTimeZoneName { get; set; }
+    public int? SelectedTimeZoneId { get; set; }
 
     [Parameter]
-    public string? SelectedCountryName { get; set; }
+    public int? SelectedCountryId { get; set; }
 }

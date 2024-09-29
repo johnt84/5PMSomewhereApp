@@ -1,4 +1,5 @@
 ﻿using Append.Blazor.WebShare;
+using FivePMSomewhereEngine;
 using FivePMSomewhereShared.Models;
 using Microsoft.AspNetCore.Components;
 
@@ -13,10 +14,16 @@ public partial class Share
     public TimeAfterTargetModel? PreviousTimeZone { get; set; }
 
     [Inject]
-    public IWebShareService WebShareService { get; set; } = default!;
+    public ITimeZoneService TimeZoneService { get; set; } = null!;
 
     [Inject]
-    public NavigationManager NavigationManager { get; set; } = default!;
+    public ICountriesService CountriesService { get; set; } = null!;
+
+    [Inject]
+    public IWebShareService WebShareService { get; set; } = null!;
+
+    [Inject]
+    public NavigationManager NavigationManager { get; set; } = null!;
 
     private string? result;
 
@@ -29,9 +36,23 @@ public partial class Share
             string title = $"It's currently 5 PM in {timeZone?.RandomCountry}";
             string customText = title;
 
-            string urlSuffix = $"{timeZone?.TimeZoneName}/{timeZone?.RandomCountry}";
+            int? timeZoneId = TimeZoneService.GetTimeZoneId(timeZone?.TimeZoneName);
 
-            string url = $"{NavigationManager.Uri}{urlSuffix}";
+            if (timeZone is null)
+            {
+                return;
+            }
+
+            int? countryId = CountriesService.GetCountryId(timeZone?.RandomCountry);
+
+            if (timeZone is null)
+            {
+                return;
+            }
+
+            string urlSuffix = $"{timeZoneId}/{countryId}";
+
+            string url = $"{NavigationManager.BaseUri}{urlSuffix}";
 
             await WebShareService.ShareAsync(title, customText, url);
         }

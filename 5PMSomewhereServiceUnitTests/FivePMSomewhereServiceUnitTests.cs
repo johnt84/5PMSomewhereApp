@@ -40,7 +40,7 @@ public class FivePMSomewhereServiceUnitTests
         var applicableTimeZones = CallService(targetDate);
 
         // Assert
-        applicableTimeZones.CurrentTimeZones.Should().NotBeNull();
+        applicableTimeZones!.CurrentTimeZones.Should().NotBeNull();
         applicableTimeZones.PreviousTimeZones.Should().BeNull();
         applicableTimeZones.NextTimeZones.Should().BeNull();
 
@@ -77,7 +77,7 @@ public class FivePMSomewhereServiceUnitTests
         var applicableTimeZones = CallService(targetDate);
 
         // Assert
-        applicableTimeZones.CurrentTimeZones.Should().BeNull();
+        applicableTimeZones!.CurrentTimeZones.Should().BeNull();
         applicableTimeZones.PreviousTimeZones.Should().NotBeNull();
         applicableTimeZones.NextTimeZones.Should().NotBeNull();
 
@@ -111,7 +111,7 @@ public class FivePMSomewhereServiceUnitTests
         var applicableTimeZones = CallService(targetDate);
 
         // Assert
-        applicableTimeZones.CurrentTimeZones.Should().BeNull();
+        applicableTimeZones!.CurrentTimeZones.Should().BeNull();
         applicableTimeZones.PreviousTimeZones.Should().NotBeNull();
         applicableTimeZones.NextTimeZones.Should().NotBeNull();
 
@@ -143,7 +143,7 @@ public class FivePMSomewhereServiceUnitTests
         var applicableTimeZones = CallService(targetDate);
 
         // Assert
-        applicableTimeZones.CurrentTimeZones.Should().NotBeNull();
+        applicableTimeZones!.CurrentTimeZones.Should().NotBeNull();
         applicableTimeZones.PreviousTimeZones.Should().BeNull();
         applicableTimeZones.NextTimeZones.Should().BeNull();
 
@@ -214,7 +214,7 @@ public class FivePMSomewhereServiceUnitTests
         var applicableTimeZones = CallService(targetDate);
 
         // Assert
-        applicableTimeZones.CurrentTimeZones.Should().BeNull();
+        applicableTimeZones!.CurrentTimeZones.Should().BeNull();
         applicableTimeZones.PreviousTimeZones.Should().NotBeNull();
         applicableTimeZones.NextTimeZones.Should().NotBeNull();
 
@@ -247,7 +247,7 @@ public class FivePMSomewhereServiceUnitTests
         var applicableTimeZones = CallService(targetDate);
 
         // Assert
-        applicableTimeZones.CurrentTimeZones.Should().NotBeNull();
+        applicableTimeZones!.CurrentTimeZones.Should().NotBeNull();
         applicableTimeZones.PreviousTimeZones.Should().BeNull();
         applicableTimeZones.NextTimeZones.Should().BeNull();
 
@@ -284,7 +284,7 @@ public class FivePMSomewhereServiceUnitTests
         var applicableTimeZones = CallService(targetDate);
 
         // Assert
-        applicableTimeZones.CurrentTimeZones.Should().BeNull();
+        applicableTimeZones!.CurrentTimeZones.Should().BeNull();
         applicableTimeZones.PreviousTimeZones.Should().NotBeNull();
         applicableTimeZones.NextTimeZones.Should().NotBeNull();
 
@@ -318,7 +318,7 @@ public class FivePMSomewhereServiceUnitTests
         var applicableTimeZones = CallService(targetDate);
 
         // Assert
-        applicableTimeZones.CurrentTimeZones.Should().BeNull();
+        applicableTimeZones!.CurrentTimeZones.Should().BeNull();
         applicableTimeZones.PreviousTimeZones.Should().NotBeNull();
         applicableTimeZones.NextTimeZones.Should().NotBeNull();
 
@@ -331,7 +331,7 @@ public class FivePMSomewhereServiceUnitTests
         timeZone.RandomCountry.Should().Be(Countries.USA);
     }
 
-    private FivePmModel CallService(DateTime searchDate)
+    private FivePmModel? CallService(DateTime searchDate)
     {
         var fivePMSomewhereService = new FivePMSomewhereService(_countriesService);
 
