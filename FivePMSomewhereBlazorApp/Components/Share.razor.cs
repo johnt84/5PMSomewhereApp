@@ -33,8 +33,8 @@ public partial class Share
         {
             var timeZone = CurrentTimeZone ?? PreviousTimeZone;
 
-            string title = $"It's currently 5 PM in {timeZone?.RandomCountry}";
-            string customText = title;
+            string title = $"It's 5 PM in {timeZone?.RandomCountry}";
+            string customText = $"Well it is 5 PM in {timeZone?.RandomCountry}! 🍻";
 
             int? timeZoneId = TimeZoneService.GetTimeZoneId(timeZone?.TimeZoneName);
 
