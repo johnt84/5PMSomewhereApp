@@ -10,4 +10,4 @@ Web App is developed as Blazor application in .Net 8/C#.
 
 * Uses MudBlazor for the UI components
 * Utilises the Rest Countries API to get a list of countries for the timezones
-* Utilises the Dot Net TimeZoneInfo class to find which timezone it is/was and going to be be 5 PM
+* Utilises the Dot Net TimeZoneInfo class to find which timezone it is/was % PM and which timezone its about to turn 5 PM
