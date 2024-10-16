@@ -1,4 +1,4 @@
-# 5PMSomewhereApp
+# 5PM Somewhere App
 
 Simple web app which answers the universal question of where in the world is it currently 5 PM.
 
