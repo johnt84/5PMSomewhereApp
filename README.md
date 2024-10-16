@@ -6,7 +6,7 @@ The app shows either the current countries where it is currently 5 PM if its cur
 
 There is also share functionality which allows you to share where it is or was 5 PM via sharing apps such as Social Media (Facebook/Twitter, etc), WhastsApp or Email.
 
-Web App is developed as Blazor application in .Net 8/C#.
+Web App is developed as Blazor application in .Net 8 / C#.
 
 * Uses MudBlazor for the UI components
 * Utilises the Rest Countries API to get a list of countries for the timezones
