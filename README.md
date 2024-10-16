@@ -10,7 +10,7 @@ There is also share functionality which allows you to share where it is or was 5
 
 ![image](https://github.com/user-attachments/assets/737ad359-a972-49e2-a695-83ed5b7aeac6)
 
-Web App is developed as Blazor application in .Net 8 / C#.
+Web App is developed as a Blazor application in .Net 8 / C#.
 
 * Uses MudBlazor for the UI components
 * Utilises the Rest Countries API to get a list of countries for the timezones
