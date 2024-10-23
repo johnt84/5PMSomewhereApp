@@ -4,11 +4,11 @@ Simple web app which answers the universal question of where in the world is it 
 
 The app shows either the current countries where it is currently 5 PM if its currently on the hour or it shows which countries it was just 5 PM within the last hour and the countries where it is just about to turn 5 PM within the next hour.  The title heading shows a random country from the list of countries where it is or was just 5 PM.
 
-![image](https://github.com/user-attachments/assets/705e7446-ceaa-4df9-b1d6-1aabc6df7b3d)
+![image](https://github.com/user-attachments/assets/363c10bb-058d-4c31-92d2-156145177ea9)
 
 There is also a share button which allows you to share where it is or was 5 PM via sharing apps such as Social Media (Facebook/Twitter, etc), WhatsApp or Email.
 
-![image](https://github.com/user-attachments/assets/737ad359-a972-49e2-a695-83ed5b7aeac6)
+![image](https://github.com/user-attachments/assets/bd922687-e3e9-4e94-9a87-81a7c4a86595)
 
 The web App is developed as a Blazor application in .Net 8 / C#.
 
